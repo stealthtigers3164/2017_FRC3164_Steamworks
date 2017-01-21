@@ -1,0 +1,9 @@
+package org.usfirst.frc.team3164.robot.motor;
+
+public class SparkMotor {
+	private Spark m_spark;
+	
+	public Spark getSpark() {
+		return m_spark;
+	}
+}

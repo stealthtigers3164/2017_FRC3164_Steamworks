@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="edu.wpi.first.wpilibj.Spark"/>
+<fullyQualifiedTypeName name="org.usfirst.frc.team3164.robot.motor.MotorController"/>
+<fullyQualifiedTypeName name="org.usfirst.frc.team3164.robot.electrical.DriveTrain"/>
+<fullyQualifiedTypeName name="org.usfirst.frc.team3164.robot.motor.SparkMotor"/>
+<fullyQualifiedTypeName name="org.usfirst.frc.team3164.robot.electrical.TankDrive"/>
+<fullyQualifiedTypeName name="org.usfirst.frc.team3164.robot.input.Gamepad"/>
+</qualifiedTypeNameHistroy>

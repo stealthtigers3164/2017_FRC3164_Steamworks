@@ -1,0 +1,6 @@
+package org.usfirst.frc.team3164.robot.motor;
+
+public interface MotorController {
+	public int getPower();
+	public abstract
+}

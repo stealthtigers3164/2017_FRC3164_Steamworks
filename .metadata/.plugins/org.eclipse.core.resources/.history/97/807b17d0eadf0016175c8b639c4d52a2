@@ -1,0 +1,15 @@
+package org.usfirst.frc.team3164.robot.motor;
+
+import edu.wpi.first.wpilibj.Spark;
+
+public class SparkMotor {
+	private Spark m_spark;
+	
+	public SparkMotor(int location) {
+		m_spark = new Spark(location);
+	}
+	
+	public Spark getSpark() {
+		return m_spark;
+	}
+}

@@ -1,5 +1,8 @@
 package org.usfirst.frc.team3164.robot;
 
+import org.usfirst.frc.team3164.robot.electrical.TankDrive;
+import org.usfirst.frc.team3164.robot.input.Gamepad;
+
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -12,11 +15,15 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {
+	//TEMP CODE
 	final String defaultAuto = "Default";
 	final String customAuto = "My Auto";
 	String autoSelected;
 	SendableChooser<String> chooser = new SendableChooser<>();
-
+	
+	private TankDrive m_tankDrive;
+	private Gamepad m_gamepad1;
+	
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -26,6 +33,8 @@ public class Robot extends IterativeRobot {
 		chooser.addDefault("Default Auto", defaultAuto);
 		chooser.addObject("My Auto", customAuto);
 		SmartDashboard.putData("Auto choices", chooser);
+		m_tankDrive = new TankDrive(0, 1, 2, 3);
+		m_gamepad1 = new Gamepad(0);
 	}
 
 	/**
@@ -68,6 +77,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
+		m_tankDrive.update(m_gamepad1);
 	}
 
 	/**
