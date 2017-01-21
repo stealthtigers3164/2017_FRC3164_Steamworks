@@ -1,0 +1,34 @@
+package org.usfirst.frc.team3164.robot.electrical;
+
+import org.usfirst.frc.team3164.robot.motor.MotorController;
+
+public class DriveTrain<T extends MotorController>  {
+	//Left Motors
+	private T m_frontLeft;
+	private T m_backLeft;
+	
+	//Right Motors
+	private T m_frontRight;
+	private T m_backRight;
+	
+	public DriveTrain(int frontLeft, int backLeft,
+					  int frontRight, int backRight) {
+		m_frontLeft = new T(frontLeft)
+	}
+	
+	public MotorController getFrontLeft() {
+		return m_frontLeft;
+	}
+	
+	public MotorController getBackLeft() {
+		return m_backLeft;
+	}
+	
+	public MotorController getFrontRight() {
+		return m_frontRight;
+	}
+	
+	public MotorController getBackRight() {
+		return m_backRight;
+	}
+}

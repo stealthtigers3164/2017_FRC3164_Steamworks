@@ -1,0 +1,7 @@
+package org.usfirst.frc.team3164.robot.motor;
+
+public interface MotorController {
+	public double getPower();
+	public void setPower(int power);
+	public int getLocation();
+}
