@@ -149,9 +149,11 @@ public class DriveTrain<T extends BasicMotor> extends MotorSet<T> {
 				tankDrive(gamePad.sticks.LEFT_Y.getScaled(), gamePad.sticks.RIGHT_Y.getScaled());
 				break;
 			default:
+				forzaDrive(gamePad.sticks.LEFT_X.getScaled(), gamePad.trigger.getAxis());
 				new IllegalStateException("The Drive Type is not tank drive or forza drive, it may be not initialized");
 			}
 		}
+		
 	}
 
 	@Override

@@ -6,7 +6,7 @@ import org.usfirst.frc.team3164.robot.electrical.ElectricalConfig;
 import org.usfirst.frc.team3164.robot.electrical.motor.SparkMotor;
 import org.usfirst.frc.team3164.robot.input.Gamepad;
 import org.usfirst.frc.team3164.robot.movement.DriveTrain;
-
+import org.usfirst.frc.team3164.robot.movement.Lift;
 import org.usfirst.frc.team3164.robot.thread.ThreadQueue;
 import org.usfirst.frc.team3164.robot.thread.WorkerThread;
 import org.usfirst.frc.team3164.robot.vision.Camera;
@@ -34,6 +34,7 @@ public class Robot extends IterativeRobot {
 
     
     private DriveTrain<SparkMotor> drive;
+    private Lift<SparkMotor> lift;
     private Gamepad gamePad1;
     private Gamepad gamePad2;
     private Camera camera;
@@ -68,17 +69,25 @@ public class Robot extends IterativeRobot {
         drive.setScaleFactor(0.7);//Overridden by smart dashboard
         
         
+        
+        //////////////		Winch		//////////////
+        lift = new Lift<SparkMotor>(
+        		new SparkMotor(ElectricalConfig.lift_first_motor, ElectricalConfig.lift_first_rev),
+        		new SparkMotor(ElectricalConfig.lift_second_motor, ElectricalConfig.lift_second_rev));
+        
+        
+        
         gamePad1.sticks.setDeadzones();
         gamePad2.sticks.setDeadzones();
 
         //////////////		Driving		//////////////
-        /*
+        
         chooserDT = new SendableChooser();
         chooserDT.addDefault("Forza Drive", driveForza);
         chooserDT.addObject("Tank Drive", driveTank);
-        chooserDT.addObject("No Drive", driveNone);
+        chooserDT.addObject("No Driving", driveNone);
         SmartDashboard.putData("Drivetrain", chooserDT);
-		*/
+		
         drive.useForzaDrive();
         SmartDashboard.putNumber("Driving Scale Factor", 1);
         SmartDashboard.putNumber("Turning Scale Factor", 1);
@@ -119,9 +128,9 @@ public class Robot extends IterativeRobot {
     	
     	drive.setScaleFactor(SmartDashboard.getNumber("Driving Scale Factor"));
     	drive.setScaleFactor(SmartDashboard.getNumber("Turning Scale Factor"), true);
-    	
+    	SmartDashboard.putNumber("rightY", gamePad1.sticks.RIGHT_Y.getScaled());
 
-    	/*
+    	
     	 driveSelected = (String) chooserDT.getSelected();
     	 	switch(driveSelected) {
     		case driveNone:
@@ -141,8 +150,12 @@ public class Robot extends IterativeRobot {
 	    	default:
 	        	
 	            break;
-    	}*/
-
+    	}
+    	 	
+    	/*
+    	 * Winch Motor
+    	 */
+    	     	 	lift.spinWinch(gamePad2.sticks.RIGHT_Y.getScaled());
 
     	drive.updateMotors();
     }

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;DriveTrain.java&apos; to &apos;org.usfirst.frc.team3164.robot.movement.DriveTrain.java&apos;&#x0A;- Original project: &apos;SteamWorks&apos;&#x0A;- Destination element: &apos;org.usfirst.frc.team3164.robot.movement.DriveTrain.java&apos;&#x0A;- Original element: &apos;org.usfirst.frc.team3164.robot.movement.DriveTrain.java&apos;" description="Copy compilation unit" destination="/src&lt;org.usfirst.frc.team3164.robot.movement{DriveTrain.java" element1="/src&lt;org.usfirst.frc.team3164.robot.movement{DriveTrain.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1485381007350" units="1" version="1.0"/>
+</session>
