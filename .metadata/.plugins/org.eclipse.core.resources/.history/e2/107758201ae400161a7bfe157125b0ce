@@ -58,7 +58,7 @@ public class DriveTrain<T extends BasicMotor> extends MotorSet<T> {
 	 * @param axisX used to turn [-1,1]
 	 * @param axisY used to go forward [-1,1]
 	 */
-	public void forzaDrive(double axisX, double axisY, boolean slowmode) {
+	public void forzaDrive(double axisX, double axisY) {
 		axisX = -100 * scaleJoysticks(axisX, true);
 		axisY = 100 * scaleJoysticks(axisY);
 		
@@ -67,11 +67,6 @@ public class DriveTrain<T extends BasicMotor> extends MotorSet<T> {
 		
 		double r = (v+w)/200;
 		double l = (v-w)/200;
-		
-		if(slowmode) {
-			l *= .4;
-			r *= .4;
-		}
 		
 		setLeftPower(l);
 		setRightPower(r);
@@ -149,7 +144,7 @@ public class DriveTrain<T extends BasicMotor> extends MotorSet<T> {
 			switch(driveType) {
 			case FORZA_DRIVE:
 				//forzaDrive(gamePad.sticks.LEFT_X.getScaled(), gamePad.trigger.getAxis());
-				forzaDrive(gamePad.sticks.RIGHT_X.getScaled(), gamePad.sticks.LEFT_Y.getScaled(), gamePad.buttons.LEFT_STICK_BUTTON.isOn());
+				forzaDrive(gamePad.sticks.RIGHT_X.getScaled(), gamePad.sticks.LEFT_Y.getScaled(), gamePad.buttons.LEFT_STICK_BUTTON);
 				break;
 			case TANK_DRIVE:
 				tankDrive(gamePad.sticks.LEFT_Y.getScaled(), gamePad.sticks.RIGHT_Y.getScaled());

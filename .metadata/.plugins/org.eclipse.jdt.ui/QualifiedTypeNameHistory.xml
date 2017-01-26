@@ -8,4 +8,5 @@
 <fullyQualifiedTypeName name="org.usfirst.frc.team3164.robot.input.Gamepad"/>
 <fullyQualifiedTypeName name="edu.wpi.first.wpilibj.Talon"/>
 <fullyQualifiedTypeName name="edu.wpi.first.wpilibj.Jaguar"/>
+<fullyQualifiedTypeName name="org.usfirst.frc.team3164.robot.movement.Lift"/>
 </qualifiedTypeNameHistroy>

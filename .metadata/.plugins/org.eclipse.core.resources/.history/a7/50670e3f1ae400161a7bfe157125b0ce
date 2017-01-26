@@ -69,8 +69,8 @@ public class DriveTrain<T extends BasicMotor> extends MotorSet<T> {
 		double l = (v-w)/200;
 		
 		if(slowmode) {
-			l *= .4;
-			r *= .4;
+			l *= .5;
+			r *= .5;
 		}
 		
 		setLeftPower(l);
