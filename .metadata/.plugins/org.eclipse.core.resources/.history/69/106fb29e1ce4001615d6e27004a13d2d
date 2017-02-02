@@ -147,17 +147,16 @@ public class DriveTrain<T extends BasicMotor> extends MotorSet<T> {
 		
 		if (shouldUpdate()) {
 			switch(driveType) {
-			
+			case FORZA_DRIVE:
+				//forzaDrive(gamePad.sticks.LEFT_X.getScaled(), gamePad.trigger.getAxis());
+				forzaDrive(gamePad.sticks.RIGHT_X.getScaled(), gamePad.sticks.LEFT_Y.getScaled(), gamePad.buttons.LEFT_STICK_BUTTON.isOn());
+				break;
 			case TANK_DRIVE:
 				tankDrive(gamePad.sticks.LEFT_Y.getScaled(), gamePad.sticks.RIGHT_Y.getScaled());
 				break;
-			case FORZA_DRIVE:
-				//forzaDrive(gamePad.sticks.LEFT_X.getScaled(), gamePad.trigger.getAxis());
-				forzaDrive(gamePad.sticks.RIGHT_X.getScaled(), gamePad.sticks.LEFT_Y.getScaled(), (gamePad.buttons.BUTTON_LB.isOn()));
-				break;
 			default:
 				//forzaDrive(gamePad.sticks.LEFT_X.getScaled(), gamePad.trigger.getAxis());
-				forzaDrive(gamePad.sticks.RIGHT_X.getScaled(), gamePad.sticks.LEFT_Y.getScaled(), (gamePad.buttons.BUTTON_LB.isOn()));
+				forzaDrive(gamePad.sticks.RIGHT_X.getScaled(), gamePad.sticks.LEFT_Y.getScaled(), gamePad.buttons.LEFT_STICK_BUTTON.isOn());
 				new IllegalStateException("The Drive Type is not tank drive or forza drive, it may be not initialized");
 			}
 		}
