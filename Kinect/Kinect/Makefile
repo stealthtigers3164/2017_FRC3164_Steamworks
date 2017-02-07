@@ -9,4 +9,4 @@ CFLAGS=-I$(HEADER_LOC) -I/usr/local/include/libfreenect -I/usr/local/include -g 
 FILES=$(C_LOC)/*.c $(CPP_LOC)/*.cpp
 
 build: $(FILES)
-		$(CC) -o kinect_lib $(FILES) $(CFLAGS)
+		$(CC) -o kinect $(FILES) $(CFLAGS)

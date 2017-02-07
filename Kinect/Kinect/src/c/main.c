@@ -22,7 +22,7 @@ void send_to_rio(char *data, int length) {
 int main() {
     setbuf(stdout, NULL);
     
-    socket_init();
+   /* socket_init();
     int return_code = -1;
     
     char HOST_IP[50];
@@ -50,7 +50,7 @@ int main() {
     char *id = "CP_KIN";
     
     send(host_socket, id, 6, 0);
-    
+    */
     init_cv();
     init_kinect();
     kinect_video_ir();

@@ -5,8 +5,7 @@
 
 #include <pthread.h>
 
-// This file is currently not active, since we decided that getting an image stream of just the ceiling is not
-// really necessary.
+
 
 using namespace cv;
 using namespace std;
@@ -20,7 +19,7 @@ SocketAddress addr;
 void *send_thread(void *args) {
     while(1) {
 	Mat video = video_wait();
-        char *ds_ip = "10.53.33.194"; 
+        char *ds_ip = "127.0.0.1";//"10.53.33.194"; 
         // int len = get_ds_ip(ds_ip);
         int len = 1;
 
@@ -46,6 +45,6 @@ void init_ds() {
     addr.sin_family = AF_INET;
     addr.sin_port = htons(5801);
                 
-    // pthread_create(&send_thread_id, NULL, send_thread, NULL);
+    pthread_create(&send_thread_id, NULL, send_thread, NULL);
 }
            
