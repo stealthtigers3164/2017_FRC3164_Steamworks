@@ -184,4 +184,14 @@ public class DriveTrain<T extends BasicMotor> extends MotorSet<T> {
 	public int getDriveType() {
 		return driveType;
 	}
+
+	public void turnRightByDegrees(double d) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void turnLeftByDegrees(double d) {
+		// TODO Auto-generated method stub
+		
+	}
 }

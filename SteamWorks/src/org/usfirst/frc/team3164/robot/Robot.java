@@ -30,8 +30,6 @@ public class Robot extends IterativeRobot {
     private final String driveNone = "No Drive";
     private String driveSelected;
     private SendableChooser chooserDT;
-
-
     
     private DriveTrain<SparkMotor> drive;
     private Lift<SparkMotor> lift;

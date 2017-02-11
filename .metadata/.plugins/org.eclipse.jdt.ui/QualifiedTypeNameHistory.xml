@@ -9,4 +9,7 @@
 <fullyQualifiedTypeName name="edu.wpi.first.wpilibj.Talon"/>
 <fullyQualifiedTypeName name="edu.wpi.first.wpilibj.Jaguar"/>
 <fullyQualifiedTypeName name="org.usfirst.frc.team3164.robot.movement.Lift"/>
+<fullyQualifiedTypeName name="org.usfirst.frc.team3164.robot.movement.DriveTrain"/>
+<fullyQualifiedTypeName name="org.usfirst.frc.team3164.robot.auto.GyroSensor"/>
+<fullyQualifiedTypeName name="edu.wpi.first.wpilibj.AnalogGyro"/>
 </qualifiedTypeNameHistroy>

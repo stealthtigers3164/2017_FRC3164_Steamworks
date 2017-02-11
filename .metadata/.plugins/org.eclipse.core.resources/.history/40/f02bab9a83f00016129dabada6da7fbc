@@ -1,0 +1,21 @@
+package org.usfirst.frc.team3164.robot.auto;
+
+public class GyroHandler {
+	private GyroscopeSensor m_sensor;
+
+	//NOTE: This is not the value that it should be
+	private final double GYRO_SENSITIVITY = 1;
+
+	private double degreesCounted;
+	
+	public GyroHandler(int channel) {
+		m_sensor = new GyroscopeSensor(channel, GYRO_SENSITIVITY);
+		degreesCounted = 0;
+	}
+
+	public double getDegrees() {
+		//This will not return what is wanted, instead make it so that it counts the time in between this call, and multiplies that
+		//with this rate
+		return m_sensor.getRate() + degressCounted;
+	}
+}

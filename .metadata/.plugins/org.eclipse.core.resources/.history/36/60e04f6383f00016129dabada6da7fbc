@@ -1,0 +1,18 @@
+package org.usfirst.frc.team3164.robot.auto;
+
+public class GyroHandler {
+	private GyroscopeSensor m_sensor;
+
+	private final double GYRO_SENSITIVITY = 1;
+
+	private double degreesCounted;
+	
+	public GyroHandler(int channel) {
+		m_sensor = new GyroscopeSensor(channel, GYRO_SENSITIVITY);
+		degreesCounted = 0;
+	}
+
+	public double getDegrees() {
+		return degreesCounted;
+	}
+}

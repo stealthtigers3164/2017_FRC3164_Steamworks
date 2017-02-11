@@ -1,0 +1,30 @@
+package org.usfirst.frc.team3164.robot.auto;
+
+import edu.wpi.first.wpilibj.AnalogGyro;
+
+public class GyroSensor {
+	private AnalogGyro m_gryo;
+
+	public GyroSensor(int channel, double sensitivity) {
+		m_gryo = new AnalogGyro(channel);
+		m_gryo.initGyro();
+		m_gryo.calibrate();
+		m_gryo.setSensitivity(sensitivity);
+	}
+
+	public double getAngle() {
+		return m_gryo.getAngle();
+	}
+
+	public int getCenter() {
+		return m_gryo.getCenter();
+	}
+
+	public double getOffset() {
+		return m_gryo.getOffset();
+	}
+
+	public double getRate() {
+		return m_gryo.getRate();
+	}
+}

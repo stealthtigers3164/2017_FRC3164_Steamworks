@@ -1,0 +1,135 @@
+package org.usfirst.frc.team3164.robot.auto;
+
+import org.usfirst.frc.team3164.robot.movement.DriveTrain;
+
+/**
+ * @notes 
+ *
+ * We need to keep track of time for testing puposes, and maybe even make it where
+ * if the time is running out then it actually speeds up.  This will make it so that even if
+ * we make it to slow, the robot will automatically speed up.  
+ *
+ *
+ * 
+ */
+public class AutoDrive {
+
+	//Turn Variables
+	
+	//NOTE: This is the starting position of the robot, this is marked final so that nothing can
+	//NOTE: accidentaly change the varible.
+	private final RobotPosition m_startingPosition;
+	
+	//NOTE: This handles all turn handling.
+	//NOTE: Meaning behind "turn handling": Whether or not there is another 
+	//NOTE: turn or the robot is currently turning
+	private TurnHandler m_turnHandler;
+	
+	//
+
+	//Turn constants
+
+	// - MIDDLE TURNING CONSTANTS
+
+	//NOTE: This is when the robot should start turning to the side(The initial turn)
+	private final double MIDDLE_START_TURN_DISTANCE = ?;
+
+	//NOTE: This is the amount of units(feet, inches, meters, ?) that should
+	//NOTE: trigger the second turn 
+	private final double MIDDLE_SECOND_START_TURN_DISTANCE_DIFFERENCE = ?;
+
+	// - 
+	// - SIDE TURNING CONSTANTS
+
+	//NOTE: This is when the only turn should start
+	private final double SIDE_START_TURN_DISTANCE = ?;
+
+	//NOTE: This is when the robot should go foward to the peg
+	private final double SIDE_STOP_TURNING_DEGREES = ?;
+	
+	// - 
+	//
+
+	//Sensor Variables
+
+	//NOTE: What ever this class is, it needs to be able to provide the Distance from where it is 
+	private DistanceInputSensor m_distance;
+	
+	//NOTE: This is the class that you can call to get the degress traveled in a set amount of time
+	//NOTE: also you should be able to get the length traveled too
+	private GyroHandler m_gyroHandler;
+	
+	//
+
+	//Motor/Driving Variables
+
+	//I have no idea what is being used to be able to use the motors
+	//so replace this with whatever does and then replace the mock functions 
+	//with the real function
+	private DriveTrain DriveMech;
+
+	//
+
+	//Constructor
+	//This initializes all of the variables that it needs to 
+	public AutoDrive(int distanceInputSensorPort, Motors motors, int gryoPort) {
+		
+		m_distance = new DistanceInputSensor(distanceInputSensorPort);
+		m_gyroHandler = new GyroscopeHandler(gryoPort);
+		m_startingPosition = findPositionOnField();
+		m_turnHandler = new TurnHandler(m_startingPosition);
+	}
+
+	public void update() {
+		if (m_turnHandler.isTurning()) {
+			Turn currentTurn = m_turnHandler.getActiveTurn();
+			double totalDegreesMoved = m_gyroHandler.get?();
+		}
+	}
+
+	public void continueTurning(Turn currentTurn, double totalDegreesMoved) {
+		RobotPosition currentPosition = turn.getPositon();
+		currentTurn.turnedMore(totalDegreesMoved);
+
+		double currentTurnTotalDegreesTurned = currentTurn.getTotalDegreesTurned();
+
+		if (currentTurn.getPositon() == RobotPosition.MIDDLE) {
+			
+		}
+		else {
+			//TODO: Make it so that it does not have to be it completely but instead close to the
+			// wanted value
+			if (currentTurnTotalDegreesTurned < SIDE_STOP_TURNING_DEGREES) {
+				if (currentTurn.getPositon() == RobotPosition.RIGHT) {
+					DriveMech.turnRightByDegrees(SIDE_STOP_TURNING_DEGREES - currentTurnTotalDegreesTurned);
+				}
+				else if (currentTurn.getPositon() == RobotPosition.LEFT) {
+					DriveMech.turnRightByDegrees(SIDE_STOP_TURNING_DEGREES - currentTurnTotalDegreesTurned);
+				}
+			}
+			else if (currentTurnTotalDegreesTurned == SIDE_STOP_TURNING_DEGREES) {
+				currentTurn.turnComplete();
+			} else if (currentTurnTotalDegreesTurned > SIDE_STOP_TURNING_DEGREES) {
+				if (currentTurn.getPositon() == RobotPosition.RIGHT) {
+					DriveMech.turnRightByDegrees(currentTurnTotalDegreesTurned - SIDE_STOP_TURNING_DEGREES);
+				}
+				else if (currentTurn.getPositon() == RobotPosition.LEFT) {
+					DriveMech.turnLerftByDegrees(currentTurnTotalDegreesTurned - SIDE_STOP_TURNING_DEGREES);
+				}
+			}
+		}
+	}
+
+	public double getDistance() {
+		return m_depth;
+	}
+
+	public RobotPosition findPositionOnField() {
+		//This needs implementation
+	}
+
+	public void moveForwardToRemoval() {
+		//Move forward specific amount to be decided on by Will
+
+	}
+}

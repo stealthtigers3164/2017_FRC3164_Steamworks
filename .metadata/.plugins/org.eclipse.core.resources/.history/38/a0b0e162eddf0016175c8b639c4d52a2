@@ -1,9 +1,0 @@
-package org.usfirst.frc.team3164.robot.motor;
-
-public abstract class MotorController {
-	public MotorController(int location);
-	public double getPower();
-	public void setPower(double power);
-	public int getLocation();
-	public void update();
-}
