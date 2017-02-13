@@ -3,10 +3,13 @@ package org.usfirst.frc.team3164.robot.auto;
 public class MiddleRobotTurns  implements RobotTurns {
 	private Turn m_middleToSideTurn;
 	private Turn m_sideToPegTurn;
+	
+	private SideRobotTurns m_finalTurn;
 
 	public MiddleRobotTurns() {
 		m_middleToSideTurn = new Turn(RobotPosition.MIDDLE, RobotPosition.RIGHT);
 		m_sideToPegTurn = new Turn(RobotPosition.RIGHT, RobotPosition.PEG);
+		m_finalTurn = new SideRobotTurns(RobotPosition.RIGHT);
 	}	
 
 	@Override

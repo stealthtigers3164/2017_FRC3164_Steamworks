@@ -32,20 +32,23 @@ public class AutoDrive {
 	// - MIDDLE TURNING CONSTANTS
 
 	//NOTE: This is when the robot should start turning to the side(The initial turn)
-	private final double MIDDLE_START_TURN_DISTANCE = ?;
+	private final double MIDDLE_START_TURN_DISTANCE = 1270;
+	
+	
+	private final double MIDDLE_MOVE_TILL_PATH_TURN = 2819.4;
 
 	//NOTE: This is the amount of units(feet, inches, meters, ?) that should
 	//NOTE: trigger the second turn 
-	private final double MIDDLE_SECOND_START_TURN_DISTANCE_DIFFERENCE = ?;
+	private final double MIDDLE_TURN_DEGREE = 90;
 
 	// - 
 	// - SIDE TURNING CONSTANTS
 
 	//NOTE: This is when the only turn should start
-	private final double SIDE_START_TURN_DISTANCE = ?;
+	private final double SIDE_START_TURN_DISTANCE = 2504.7448; //in mm
 
 	//NOTE: This is when the robot should go foward to the peg
-	private final double SIDE_STOP_TURNING_DEGREES = ?;
+	private final double SIDE_STOP_TURNING_DEGREES = 60;
 	
 	// - 
 	//
