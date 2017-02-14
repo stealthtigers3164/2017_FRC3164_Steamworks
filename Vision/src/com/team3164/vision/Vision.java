@@ -42,27 +42,30 @@ public class Vision {
 			if(camera.read(img)) {
 				visionPipe.process(img);
 				
-				/*double[] width = null;
-				double[] height = null;
-				double[] area = null;
-				double[] posx = null;
-				double[] posy = null;
+				double[] width = new double[visionPipe.filterContoursOutput().size()];
+				double[] height = new double[visionPipe.filterContoursOutput().size()];
+				double[] area = new double[visionPipe.filterContoursOutput().size()];
+				double[] posx = new double[visionPipe.filterContoursOutput().size()];
+				double[] posy = new double[visionPipe.filterContoursOutput().size()];
 				
 				for (int i = 0; i < visionPipe.filterContoursOutput().size(); i++) {
+					Rect rect = Imgproc.boundingRect(visionPipe.filterContoursOutput().get(i));
 					
-					width[i] = visionPipe.filterContoursOutput().get(i).width();
-					height[i] = visionPipe.filterContoursOutput().get(i).height();
-					area[i] = Imgproc.contourArea(visionPipe.filterContoursOutput().get(i));
-					posx[i] = visionPipe.filterContoursOutput().get(i).rows();
-					posy[i] = visionPipe.filterContoursOutput().get(i).cols();
+					width[i] = rect.width;
+					height[i] = rect.height;
+					area[i] = rect.area();
+					posx[i] = rect.x;
+					posy[i] = rect.y;
 					
-				}*/
+				}
 				table.putString("test", "hello");
-				/*table.putNumberArray("width", width);
-				table.putNumberArray("height", height);
-				table.putNumberArray("area", area);
-				table.putNumberArray("posx", posx);
-				table.putNumberArray("posy", posy);*/
+				//if (visionPipe.filterContoursOutput().size() > 0) {
+					table.putNumberArray("width", width);
+					table.putNumberArray("height", height);
+					table.putNumberArray("area", area);
+					table.putNumberArray("posx", posx);
+					table.putNumberArray("posy", posy);
+				//}
 			}
 		}
 
