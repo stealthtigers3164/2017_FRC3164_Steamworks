@@ -12,6 +12,7 @@ import org.usfirst.frc.team3164.robot.thread.WorkerThread;
 import org.usfirst.frc.team3164.robot.vision.Camera;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -40,7 +41,7 @@ public class Robot extends IterativeRobot {
     private ThreadQueue<WorkerThread> queue;
 
     
-    //private /*final*/ NetworkTable grip = NetworkTable.getTable("grip");
+   private /*final*/ NetworkTable grip = NetworkTable.getTable("grip");
 
     public void robotInit() {
     	//TEMP
