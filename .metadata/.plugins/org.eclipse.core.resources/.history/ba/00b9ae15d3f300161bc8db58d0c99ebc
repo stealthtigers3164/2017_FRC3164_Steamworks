@@ -8,18 +8,16 @@ public class GyroHandler {
 	//NOTE: This is not the value that it should be
 	private final double GYRO_SENSITIVITY = 1;
 
-	private double lastTime = 0;
+	private double m_degreesCounted;
 	
 	public GyroHandler(int channel) {
 		m_sensor = new GyroscopeSensor(channel, GYRO_SENSITIVITY);
-		lastTime = System.currentTimeMillis();
+		m_degreesCounted = 0;
 	}
 
 	public double getDegrees() {
-		double nowTime = System.currentTimeMillis();
-		
-		double secondsPassed = (nowTime - lastTime) / 1000;
-		
+		//This will not return what is wanted, instead make it so that it counts the time in between this call, and multiplies that
+		//with this rate
 		return m_sensor.getRate() * secondsPassed;
 	}
 }

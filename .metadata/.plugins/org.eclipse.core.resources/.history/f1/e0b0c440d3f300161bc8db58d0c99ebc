@@ -16,10 +16,8 @@ public class GyroHandler {
 	}
 
 	public double getDegrees() {
-		double nowTime = System.currentTimeMillis();
-		
-		double secondsPassed = (nowTime - lastTime) / 1000;
-		
+		//This will not return what is wanted, instead make it so that it counts the time in between this call, and multiplies that
+		//with this rate
 		return m_sensor.getRate() * secondsPassed;
 	}
 }
