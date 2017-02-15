@@ -2,13 +2,13 @@ package org.usfirst.frc.team3164.robot.auto;
 
 public class MiddleRobotTurns  implements RobotTurns {
 	private Turn m_middleToSideTurn;
-	private Turn m_sideToPegTurn;
+	private Turn m_intoSideTurn;
 	
 	private SideRobotTurns m_finalTurn;
 
 	public MiddleRobotTurns() {
 		m_middleToSideTurn = new Turn(RobotPosition.MIDDLE, RobotPosition.RIGHT);
-		m_sideToPegTurn = new Turn(RobotPosition.RIGHT, RobotPosition.PEG);
+		m_intoSideTurn = new Turn(RobotPosition.RIGHT, RobotPosition.PEG);
 		m_finalTurn = new SideRobotTurns(RobotPosition.RIGHT);
 	}	
 
@@ -17,16 +17,20 @@ public class MiddleRobotTurns  implements RobotTurns {
 		if (m_middleToSideTurn.isActive()) {
 			return m_middleToSideTurn;
 		}
-		if (!m_middleToSideTurn.isActive()) {
-			return null;
+		if (m_intoSideTurn.isActive()) {
+			return m_intoSideTurn;
 		}
-		return m_sideToPegTurn;
+		if (m_finalTurn.isActive()) {
+			return m_finalTurn.getActiveTurn();
+		}
+		return null;
 	}
 
 	@Override
 	public boolean isComplete() {
 		if (m_middleToSideTurn.isDone() &&
-			m_sideToPegTurn.isDone()) {
+			m_intoSideTurn.isDone()    &&
+			m_finalTurn.isComplete()) {
 			return true;
 		}
 		return false;
@@ -52,5 +56,21 @@ public class MiddleRobotTurns  implements RobotTurns {
 		}
 
 		activeTurn.turnComplete();
+	}
+
+	@Override
+	public Turn getLastTurn() {
+		
+		if (m_middleToSideTurn.isDone() &&
+			!m_intoSideTurn.isDone()) {
+			return m_middleToSideTurn;
+		}
+		
+		if (m_intoSideTurn.isDone() &&
+			!m_finalTurn.isComplete()){
+			return m_intoSideTurn;
+		}
+		
+		return m_finalTurn.getLastTurn();
 	}
 }

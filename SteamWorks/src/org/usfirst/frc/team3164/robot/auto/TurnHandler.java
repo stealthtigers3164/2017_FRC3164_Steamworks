@@ -40,4 +40,8 @@ public class TurnHandler {
 		} 
 		return 2;
 	}
+	
+	public Turn getLastTurn() {
+		return m_turns.getLastTurn();
+	}
 }

@@ -13,7 +13,7 @@ import org.usfirst.frc.team3164.robot.movement.DriveTrain;
  *
  * 
  */
-public class AutoDrive<T> {
+public class AutoDrive<T extends BasicMotor> {
 
 	//Turn Variables
 	
@@ -89,6 +89,15 @@ public class AutoDrive<T> {
 		if (m_turnHandler.isTurning()) {
 			Turn currentTurn = m_turnHandler.getActiveTurn();
 			double totalDegreesMoved = m_gyroHandler.getDegrees();
+			continueTurning(currentTurn, totalDegreesMoved);
+		}
+		else {
+			Turn lastTurn = m_turnHandler.getLastTurn();
+			if (lastTurn == null) {
+				if (m_startingPosition == RobotPosition.MIDDLE) {
+					
+				}
+			}
 		}
 	}
 

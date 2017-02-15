@@ -26,4 +26,12 @@ public class SideRobotTurns implements RobotTurns {
 	public void completeActiveTurn() {
 		getActiveTurn().turnComplete();
 	}
+
+	@Override
+	public Turn getLastTurn() {
+		if (m_turn.isDone()) {
+			return m_turn;
+		}
+		return null;
+	}
 }

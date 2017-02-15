@@ -5,4 +5,5 @@ public interface RobotTurns {
 	boolean isActive();
 	Turn getActiveTurn();
 	void completeActiveTurn();
+	Turn getLastTurn();
 }
