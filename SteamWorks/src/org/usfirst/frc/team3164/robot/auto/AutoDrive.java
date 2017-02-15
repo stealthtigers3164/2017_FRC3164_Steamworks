@@ -1,5 +1,6 @@
 package org.usfirst.frc.team3164.robot.auto;
 
+import org.usfirst.frc.team3164.robot.electrical.motor.BasicMotor;
 import org.usfirst.frc.team3164.robot.movement.DriveTrain;
 
 /**
@@ -12,7 +13,7 @@ import org.usfirst.frc.team3164.robot.movement.DriveTrain;
  *
  * 
  */
-public class AutoDrive {
+public class AutoDrive<T> {
 
 	//Turn Variables
 	
@@ -69,14 +70,15 @@ public class AutoDrive {
 	//I have no idea what is being used to be able to use the motors
 	//so replace this with whatever does and then replace the mock functions 
 	//with the real function
-	private DriveTrain DriveMech;
+	private DriveTrain<T> m_driveTrain;
 
 	//
 
 	//Constructor
 	//This initializes all of the variables that it needs to 
-	public AutoDrive(int distanceInputSensorPort, Motors motors, int gryoPort) {
+	public AutoDrive(int distanceInputSensorPort, DriveTrain<T> driveTrain, int gryoPort) {
 		
+		m_driveTrain = driveTrain;
 		//m_distance = new DistanceInputSensor(distanceInputSensorPort);
 		m_gyroHandler = new GyroHandler(gryoPort);
 		m_startingPosition = findPositionOnField();
@@ -91,7 +93,6 @@ public class AutoDrive {
 	}
 
 	public void continueTurning(Turn currentTurn, double totalDegreesMoved) {
-		RobotPosition currentPosition = turn.getPositon();
 		currentTurn.turnedMore(totalDegreesMoved);
 
 		double currentTurnTotalDegreesTurned = currentTurn.getTotalDegreesTurned();
@@ -104,20 +105,20 @@ public class AutoDrive {
 			// wanted value
 			if (currentTurnTotalDegreesTurned < SIDE_STOP_TURNING_DEGREES) {
 				if (currentTurn.getPositon() == RobotPosition.RIGHT) {
-					DriveMech.turnLeftByDegrees(SIDE_STOP_TURNING_DEGREES - currentTurnTotalDegreesTurned);
+					m_driveTrain.turnLeftByDegrees(SIDE_STOP_TURNING_DEGREES - currentTurnTotalDegreesTurned);
 				}
 				else if (currentTurn.getPositon() == RobotPosition.LEFT) {
-					DriveMech.turnRightByDegrees(SIDE_STOP_TURNING_DEGREES - currentTurnTotalDegreesTurned);
+					m_driveTrain.turnRightByDegrees(SIDE_STOP_TURNING_DEGREES - currentTurnTotalDegreesTurned);
 				}
 			}
 			else if (currentTurnTotalDegreesTurned == SIDE_STOP_TURNING_DEGREES) {
 				currentTurn.turnComplete();
 			} else if (currentTurnTotalDegreesTurned > SIDE_STOP_TURNING_DEGREES) {
 				if (currentTurn.getPositon() == RobotPosition.RIGHT) {
-					DriveMech.turnRightByDegrees(currentTurnTotalDegreesTurned - SIDE_STOP_TURNING_DEGREES);
+					m_driveTrain.turnRightByDegrees(currentTurnTotalDegreesTurned - SIDE_STOP_TURNING_DEGREES);
 				}
 				else if (currentTurn.getPositon() == RobotPosition.LEFT) {
-					DriveMech.turnLeftByDegrees(currentTurnTotalDegreesTurned - SIDE_STOP_TURNING_DEGREES);
+					m_driveTrain.turnLeftByDegrees(currentTurnTotalDegreesTurned - SIDE_STOP_TURNING_DEGREES);
 				}
 			}
 		}
@@ -130,6 +131,7 @@ public class AutoDrive {
 
 	public RobotPosition findPositionOnField() {
 		//This needs implementation
+		return null;
 	}
 
 	public void moveForwardToRemoval() {
