@@ -6,6 +6,8 @@ import org.usfirst.frc.team3164.robot.electrical.motor.BasicMotor;
 import org.usfirst.frc.team3164.robot.electrical.motor.MotorSet;
 import org.usfirst.frc.team3164.robot.input.Gamepad;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 public class DriveTrain<T extends BasicMotor> extends MotorSet<T> {
 	
 	public static final int FORZA_DRIVE = 0;
@@ -184,14 +186,31 @@ public class DriveTrain<T extends BasicMotor> extends MotorSet<T> {
 	public int getDriveType() {
 		return driveType;
 	}
+	
+	public static double clamp(double val, double min, double max) {
+	    return Math.max(min, Math.min(max, val));
+	}
 
 	public void turnRightByDegrees(double d) {
-		// TODO Auto-generated method stub
+		double clampedValue = clamp(d, 0, 1);
+		SmartDashboard.putNumber("turnRightByDegrees pwr", clampedValue);
 		
+		setRightPower(clampedValue);
+		setLeftPower(-clampedValue);
 	}
 
 	public void turnLeftByDegrees(double d) {
-		// TODO Auto-generated method stub
+		double clampedValue = clamp(d, 0, 1);
+		SmartDashboard.putNumber("turnLeftByDegrees pwr", clampedValue);
 		
+		setRightPower(-clampedValue);
+		setLeftPower(clampedValue);
+	}
+
+	public void moveByLength(double d) {
+		double clampedValue = clamp(d, 0, 1);
+		SmartDashboard.putNumber("moveByLength pwr", clampedValue);
+		setLeftPower(clampedValue);
+		setRightPower(clampedValue);		
 	}
 }

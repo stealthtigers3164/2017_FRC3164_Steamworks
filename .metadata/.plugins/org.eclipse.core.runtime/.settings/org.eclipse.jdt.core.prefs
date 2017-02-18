@@ -1,9 +1,9 @@
 JRE_LIB=C\:/Program Files/Java/jre1.8.0_66/lib/rt.jar
 JRE_SRC=
 eclipse.preferences.version=1
-org.eclipse.jdt.core.classpathVariable.JRE_LIB=/Library/Java/JavaVirtualMachines/jdk1.8.0_66.jdk/Contents/Home/jre/lib/rt.jar
-org.eclipse.jdt.core.classpathVariable.JRE_SRC=/Library/Java/JavaVirtualMachines/jdk1.8.0_66.jdk/Contents/Home/src.zip
-org.eclipse.jdt.core.classpathVariable.JRE_SRCROOT=src
+org.eclipse.jdt.core.classpathVariable.JRE_LIB=C\:/Program Files/Java/jdk1.8.0_91/jre/lib/rt.jar
+org.eclipse.jdt.core.classpathVariable.JRE_SRC=C\:/Program Files/Java/jdk1.8.0_91/src.zip
+org.eclipse.jdt.core.classpathVariable.JRE_SRCROOT=
 org.eclipse.jdt.core.classpathVariable.JUNIT_HOME=/Users/will/.p2/pool/plugins/org.junit_4.12.0.v201504281640/
 org.eclipse.jdt.core.classpathVariable.M2_REPO=/Users/will/.m2/repository
 org.eclipse.jdt.core.classpathVariable.USERLIBS_DIR=/Users/will/wpilib/user/java/lib

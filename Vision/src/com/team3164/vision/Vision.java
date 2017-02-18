@@ -24,7 +24,7 @@ public class Vision {
 		visionPipe = new GripPipeline();
 		
 		networkTables.setClientMode();
-		networkTables.setIPAddress("roboRIO-3164-FRC.local");//Change to roborio-3164-FRC.local
+		networkTables.setIPAddress("jrue.local");//Change to roborio-3164-FRC.local
 		
 		networkTables.initialize();
 		

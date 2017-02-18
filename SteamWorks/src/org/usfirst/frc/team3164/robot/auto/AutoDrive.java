@@ -3,6 +3,9 @@ package org.usfirst.frc.team3164.robot.auto;
 import org.usfirst.frc.team3164.robot.electrical.motor.BasicMotor;
 import org.usfirst.frc.team3164.robot.movement.DriveTrain;
 
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 /**
  * @notes 
  *
@@ -35,12 +38,15 @@ public class AutoDrive<T extends BasicMotor> {
 	//NOTE: This is when the robot should start turning to the side(The initial turn)
 	private final double MIDDLE_START_TURN_DISTANCE = 1270;
 	
-	
+	//NOTE: DO NOT REMOVE, BUT Daniel does not know what this is for
 	private final double MIDDLE_MOVE_TILL_PATH_TURN = 2819.4;
 
+	//NOTE: This is the distance from the middle to the right side, this is after the turn to point to the right side is complete.
+	private final double MIDDLE_TO_RIGHT_SIDE_LENGTH = ?;
+	
 	//NOTE: This is the amount of units(feet, inches, meters, ?) that should
 	//NOTE: trigger the second turn 
-	private final double MIDDLE_TURN_DEGREE = 90;
+	private final int MIDDLE_TURN_DEGREE = 90;
 
 	// - 
 	// - SIDE TURNING CONSTANTS
@@ -49,15 +55,19 @@ public class AutoDrive<T extends BasicMotor> {
 	private final double SIDE_START_TURN_DISTANCE = 2504.7448; //in mm
 
 	//NOTE: This is when the robot should go foward to the peg
-	private final double SIDE_STOP_TURNING_DEGREES = 60;
+	private final int SIDE_STOP_TURNING_DEGREES = 60;
 	
 	// - 
 	//
 
 	//Sensor Variables
 
-	//NOTE: What ever this class is, it needs to be able to provide the Distance from where it is 
-	//private DistanceInputSensor m_distance;
+	//NOTE: This is where the two distance sensors will come from
+	private NetworkTable m_sensorNetworkTable;
+	
+	//NOTE: These are the two values that are used to get the front distance sensor and the lidar distance sensor
+	private String m_lidarNetworkTableName;
+	private String m_frontUltraNetworkTableName;
 	
 	//NOTE: This is the class that you can call to get the degress traveled in a set amount of time
 	//NOTE: also you should be able to get the length traveled too
@@ -76,75 +86,129 @@ public class AutoDrive<T extends BasicMotor> {
 
 	//Constructor
 	//This initializes all of the variables that it needs to 
-	public AutoDrive(int distanceInputSensorPort, DriveTrain<T> driveTrain, int gryoPort) {
+	public AutoDrive(int distanceInputSensorPort, DriveTrain<T> driveTrain, int gryoPort, RobotPosition startingPosition,
+					 NetworkTable sensorNetworkTable, String lidarNetworkTableName, String frontUltraNetworkTableName) {
 		
+		//NOTE: If the robot never gets out of a turn because the degree is actually the same as the wanted one
+		//Make it so that it has to be within 1 degree of the wanted value
+
+		
+		//NOTE: Moving stuff initialization
 		m_driveTrain = driveTrain;
-		//m_distance = new DistanceInputSensor(distanceInputSensorPort);
+		
+		//NOTE: Distance sensor initialization
+		m_sensorNetworkTable = sensorNetworkTable;
+		m_lidarNetworkTableName = lidarNetworkTableName;
+		m_frontUltraNetworkTableName = frontUltraNetworkTableName;
+		
+		//NOTE: Turning code initialization
 		m_gyroHandler = new GyroHandler(gryoPort);
-		m_startingPosition = findPositionOnField();
+		m_startingPosition = startingPosition;
 		m_turnHandler = new TurnHandler(m_startingPosition);
 	}
 
 	public void update() {
+		//NOTE: Checks whether there is or not a turn is happening at the moment
 		if (m_turnHandler.isTurning()) {
+			//Continuing the turn
 			Turn currentTurn = m_turnHandler.getActiveTurn();
-			double totalDegreesMoved = m_gyroHandler.getDegrees();
-			continueTurning(currentTurn, totalDegreesMoved);
+			continueTurning(currentTurn, (int)m_gyroHandler.getRobotAngle());
 		}
 		else {
+			//NOTE: Checking to see if the robot should start to turn or keep moving forward
 			Turn lastTurn = m_turnHandler.getLastTurn();
-			if (lastTurn == null) {
-				if (m_startingPosition == RobotPosition.MIDDLE) {
-					
+			RobotPosition currentRobotPosition = m_startingPosition;
+			
+			if (lastTurn != null) {
+				currentRobotPosition = lastTurn.getPositonAfterTurn();
+			}
+			
+			if (currentRobotPosition == RobotPosition.PEG) {
+				double forwardsDistance = getForwardDistance();
+				if (forwardsDistance < 100) { // This is crucial
+					//TODO: Auto align code should be called here, however I do not know where that code should go because that is
+					//      not specific to this code, so it should go in some AutoAlign class
+					//if (AutoAlign.needed(
+					//AutoAlign.align();
+				}
+				SmartDashboard.putNumber("Forward Distance when facing the peg", forwardsDistance);
+				m_driveTrain.moveByLength(forwardsDistance);
+			}
+			
+			double backwardsDistance = getBackDistance();
+			if (currentRobotPosition == RobotPosition.MIDDLE) {
+				
+				if (lastTurn.getPositon() == RobotPosition.MIDDLE) {
+					if (backwardsDistance < MIDDLE_TO_RIGHT_SIDE_LENGTH) {
+						m_driveTrain.moveByLength(MIDDLE_TO_RIGHT_SIDE_LENGTH - backwardsDistance);
+					} else {
+						m_turnHandler.startTurn(currentRobotPosition, RobotPosition.RIGHT);
+					}
+				}
+				
+				if (backwardsDistance < MIDDLE_START_TURN_DISTANCE) {
+					m_driveTrain.moveByLength(MIDDLE_START_TURN_DISTANCE - backwardsDistance);
+				} else {
+					m_turnHandler.startTurn(currentRobotPosition, RobotPosition.RIGHT);
+				}
+			} else {
+				if (backwardsDistance < SIDE_START_TURN_DISTANCE) {
+					m_driveTrain.moveByLength(SIDE_START_TURN_DISTANCE - backwardsDistance);
+				} else {
+					m_turnHandler.startTurn(currentRobotPosition, RobotPosition.PEG);
 				}
 			}
 		}
 	}
 
-	public void continueTurning(Turn currentTurn, double totalDegreesMoved) {
-		currentTurn.turnedMore(totalDegreesMoved);
-
-		double currentTurnTotalDegreesTurned = currentTurn.getTotalDegreesTurned();
-
+	public void continueTurning(Turn currentTurn, int robotAngle) {
 		if (currentTurn.getPositon() == RobotPosition.MIDDLE) {
-			
+			if (robotAngle < MIDDLE_TURN_DEGREE) {
+				m_driveTrain.turnLeftByDegrees(MIDDLE_TURN_DEGREE - robotAngle);
+			} else if (robotAngle > MIDDLE_TURN_DEGREE) {
+				m_driveTrain.turnRightByDegrees(MIDDLE_TURN_DEGREE - robotAngle);
+			} else {
+				currentTurn.turnComplete();
+			}
 		}
 		else {
-			//TODO: Make it so that it does not have to be it completely but instead close to the
-			// wanted value
-			if (currentTurnTotalDegreesTurned < SIDE_STOP_TURNING_DEGREES) {
-				if (currentTurn.getPositon() == RobotPosition.RIGHT) {
-					m_driveTrain.turnLeftByDegrees(SIDE_STOP_TURNING_DEGREES - currentTurnTotalDegreesTurned);
-				}
-				else if (currentTurn.getPositon() == RobotPosition.LEFT) {
-					m_driveTrain.turnRightByDegrees(SIDE_STOP_TURNING_DEGREES - currentTurnTotalDegreesTurned);
+			
+			if (currentTurn.getPositon() == RobotPosition.RIGHT &&
+				currentTurn.getPositonAfterTurn() == RobotPosition.RIGHT) {
+				if (robotAngle < 90) {
+					m_driveTrain.turnRightByDegrees(90 - robotAngle);
+				} else if (robotAngle > 90) {
+					m_driveTrain.turnLeftByDegrees(robotAngle - 90);					
+				} else {
+					currentTurn.turnComplete();
 				}
 			}
-			else if (currentTurnTotalDegreesTurned == SIDE_STOP_TURNING_DEGREES) {
-				currentTurn.turnComplete();
-			} else if (currentTurnTotalDegreesTurned > SIDE_STOP_TURNING_DEGREES) {
+			
+			if (robotAngle < SIDE_STOP_TURNING_DEGREES) {
 				if (currentTurn.getPositon() == RobotPosition.RIGHT) {
-					m_driveTrain.turnRightByDegrees(currentTurnTotalDegreesTurned - SIDE_STOP_TURNING_DEGREES);
+					m_driveTrain.turnLeftByDegrees(SIDE_STOP_TURNING_DEGREES - robotAngle);
 				}
 				else if (currentTurn.getPositon() == RobotPosition.LEFT) {
-					m_driveTrain.turnLeftByDegrees(currentTurnTotalDegreesTurned - SIDE_STOP_TURNING_DEGREES);
+					m_driveTrain.turnRightByDegrees(SIDE_STOP_TURNING_DEGREES - robotAngle);
 				}
+			} else if (robotAngle > SIDE_STOP_TURNING_DEGREES) {
+				if (currentTurn.getPositon() == RobotPosition.RIGHT) {
+					m_driveTrain.turnRightByDegrees(robotAngle - SIDE_STOP_TURNING_DEGREES);
+				}
+				else if (currentTurn.getPositon() == RobotPosition.LEFT) {
+					m_driveTrain.turnLeftByDegrees(robotAngle - SIDE_STOP_TURNING_DEGREES);
+				}
+			} else {
+				currentTurn.turnComplete();
 			}
 		}
 	}
-
-	public double getDistance() {
-		//TODO: Implement
-		return 0;
+	
+	public double getBackDistance() {
+		return (double) m_sensorNetworkTable.getValue(m_lidarNetworkTableName, -1);
 	}
-
-	public RobotPosition findPositionOnField() {
-		//This needs implementation
-		return null;
-	}
-
-	public void moveForwardToRemoval() {
-		//Move forward specific amount to be decided on by Will
-
+	
+	public double getForwardDistance() {
+		return (double) m_sensorNetworkTable.getValue(m_frontUltraNetworkTableName, -1);
 	}
 }

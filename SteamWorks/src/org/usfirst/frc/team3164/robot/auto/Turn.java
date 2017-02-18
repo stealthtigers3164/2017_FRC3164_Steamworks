@@ -7,14 +7,11 @@ public class Turn {
 	private boolean m_isActive;
 	private boolean m_isDone;
 
-	private double m_degreesTurned;
-
 	public Turn(RobotPosition position, RobotPosition positionAfterTurn) {
 		m_position = position;
 		m_positionAfterTurn = positionAfterTurn;
 		m_isActive = false;
 		m_isDone = false;
-		m_degreesTurned = 0;
 	}
 
 	public RobotPosition getPositon() {
@@ -40,13 +37,5 @@ public class Turn {
 
 	public boolean isDone() {
 		return m_isDone;
-	}
-
-	public void turnedMore(double moreDegs) {
-		m_degreesTurned += moreDegs;
-	}
-	
-	public double getTotalDegreesTurned() {
-		return m_degreesTurned;
 	}
 }

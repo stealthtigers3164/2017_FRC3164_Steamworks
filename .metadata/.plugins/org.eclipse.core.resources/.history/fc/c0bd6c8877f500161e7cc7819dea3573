@@ -1,0 +1,74 @@
+package org.usfirst.frc.team3164.robot.auto;
+
+import java.util.ArrayList;
+
+public class TurnHandler {
+	//private RobotTurns m_turns;
+
+	public enum RobotTurnHandlerType {
+		TURNHANDLER_MIDDLE,
+		TURNHANDLER_SIDE
+	}
+
+	private RobotTurnHandlerType type;
+
+	private ArrayList<Turn> m_turns;
+	
+	public TurnHandler(RobotPosition startingPosition) {
+//		if (startingPosition == RobotPosition.MIDDLE) {
+//			m_turns = new MiddleRobotTurns();
+//			type = RobotTurnHandlerType.TURNHANDLER_MIDDLE;
+//		}
+//		else if (startingPosition == RobotPosition.RIGHT ||
+//				startingPosition == RobotPosition.LEFT) {
+//			m_turns = new SideRobotTurns(startingPosition);
+//			type = RobotTurnHandlerType.TURNHANDLER_SIDE;
+//		}
+		
+		m_turns = new ArrayList<Turn>();
+	}
+
+	public void completeActiveTurn() {
+		for (Turn turn : m_turns) {
+			if (turn.isActive()) {
+				turn.turnComplete();
+			}
+		}
+	}
+
+	public boolean isTurning() {
+		for (Turn turn : m_turns) {
+			if (turn.isActive()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public Turn getActiveTurn() {
+		for (Turn turn : m_turns) {
+			if (turn.isActive()) {
+				return turn;
+			}
+		}
+		return null;
+	}
+	
+	public Turn getLastTurn() {
+		Turn lastDoneTurn = null;
+		for (Turn turn : m_turns) {
+			if (lastDoneTurn != null &&
+				!turn.isDone()) {
+				return lastDoneTurn;
+			} else if (turn.isDone()) {
+				lastDoneTurn = turn;
+			}
+		}
+		return null;
+	}
+	
+	public void startTurn(RobotPosition startingPosition, RobotPosition endGoal) {
+		Turn newTurn = new Turn(startingPosition, endGoal);
+		
+	}
+}
