@@ -50,55 +50,55 @@ public class Robot extends IterativeRobot {
 	private AutoDrive<SparkMotor> m_autonomous;
 	private SendableChooser m_startPositionChooser;
 
+	private SparkMotor m_winch;
+	
 	public void robotInit() {
-		// TEMP
-		/*
-		 * chooser = new SendableChooser(); chooser.addDefault("Default Auto",
-		 * defaultAuto); chooser.addObject("My Auto", customAuto);
-		 * SmartDashboard.putData("Auto choices", chooser);
-		 */
-		// END Temp
-
-		Watchcat.init();// Not sure if should go here
-
-		////////////// Gamepad //////////////
-		gamePad1 = new Gamepad(0);
-		gamePad2 = new Gamepad(1);
-
-		////////////// Drivetrain //////////////
-		drive = new DriveTrain<SparkMotor>(
-				new SparkMotor(ElectricalConfig.wheel_frontLeft_motor, ElectricalConfig.wheel_frontLeft_rev),
-				new SparkMotor(ElectricalConfig.wheel_frontRight_motor, ElectricalConfig.wheel_frontRight_rev),
-				new SparkMotor(ElectricalConfig.wheel_backLeft_motor, ElectricalConfig.wheel_backLeft_rev),
-				new SparkMotor(ElectricalConfig.wheel_backRight_motor, ElectricalConfig.wheel_backRight_rev), gamePad1);
-		drive.setScaleFactor(0.7);// Overridden by smart dashboard
-
-		////////////// Winch //////////////
-		lift = new Lift<SparkMotor>(new SparkMotor(ElectricalConfig.lift_first_motor, ElectricalConfig.lift_first_rev),
-				new SparkMotor(ElectricalConfig.lift_second_motor, ElectricalConfig.lift_second_rev));
-
-		gamePad1.sticks.setDeadzones();
-		gamePad2.sticks.setDeadzones();
-
-		////////////// Driving //////////////
-
-		chooserDT = new SendableChooser();
-		chooserDT.addDefault("Forza Drive", driveForza);
-		chooserDT.addObject("Tank Drive", driveTank);
-		chooserDT.addObject("No Driving", driveNone);
-		SmartDashboard.putData("Drivetrain", chooserDT);
-		
-		m_startPositionChooser = new SendableChooser();
-		m_startPositionChooser.addDefault("RIGHT", rightRobotPosition);
-		m_startPositionChooser.addObject("LEFT", leftRobotPosition);
-		m_startPositionChooser.addObject("MIDDLE", middleRobotPosition);
-		SmartDashboard.putData("StartPosition", m_startPositionChooser);
-
-		drive.useForzaDrive();
-		SmartDashboard.putNumber("Driving Scale Factor", 1);
-		SmartDashboard.putNumber("Turning Scale Factor", 1);
-
-		queue = new ThreadQueue<WorkerThread>();
+//		// TEMP
+//		/*
+//		 * chooser = new SendableChooser(); chooser.addDefault("Default Auto",
+//		 * defaultAuto); chooser.addObject("My Auto", customAuto);
+//		 * SmartDashboard.putData("Auto choices", chooser);
+//		 */
+//		// END Temp
+//
+//		Watchcat.init();// Not sure if should go here
+//
+//		////////////// Gamepad //////////////
+//		gamePad1 = new Gamepad(0);
+//		gamePad2 = new Gamepad(1);
+//
+//		////////////// Drivetrain //////////////
+//		drive = new DriveTrain<SparkMotor>(
+//				new SparkMotor(ElectricalConfig.wheel_frontLeft_motor, ElectricalConfig.wheel_frontLeft_rev),
+//				new SparkMotor(ElectricalConfig.wheel_frontRight_motor, ElectricalConfig.wheel_frontRight_rev),
+//				new SparkMotor(ElectricalConfig.wheel_backLeft_motor, ElectricalConfig.wheel_backLeft_rev),
+//				new SparkMotor(ElectricalConfig.wheel_backRight_motor, ElectricalConfig.wheel_backRight_rev), gamePad1);
+//		drive.setScaleFactor(0.7);// Overridden by smart dashboard
+//
+//		m_winch = new SparkMotor(ElectricalConfig.winch_motor, false);
+//		
+//		gamePad1.sticks.setDeadzones();
+//		gamePad2.sticks.setDeadzones();
+//
+//		////////////// Driving //////////////
+//
+//		chooserDT = new SendableChooser();
+//		chooserDT.addDefault("Forza Drive", driveForza);
+//		chooserDT.addObject("Tank Drive", driveTank);
+//		chooserDT.addObject("No Driving", driveNone);
+//		SmartDashboard.putData("Drivetrain", chooserDT);
+//		
+//		m_startPositionChooser = new SendableChooser();
+//		m_startPositionChooser.addDefault("RIGHT", rightRobotPosition);
+//		m_startPositionChooser.addObject("LEFT", leftRobotPosition);
+//		m_startPositionChooser.addObject("MIDDLE", middleRobotPosition);
+//		SmartDashboard.putData("StartPosition", m_startPositionChooser);
+//
+//		drive.useForzaDrive();
+//		SmartDashboard.putNumber("Driving Scale Factor", 1);
+//		SmartDashboard.putNumber("Turning Scale Factor", 1);
+//
+//		queue = new ThreadQueue<WorkerThread>();
 	}
 
 	/**
@@ -113,87 +113,94 @@ public class Robot extends IterativeRobot {
 	 * SendableChooser make sure to add them to the chooser code above as well.
 	 */
 	public void autonomousInit() {
-		////////////// Drivetrain //////////////
-		drive = new DriveTrain<SparkMotor>(
-				new SparkMotor(ElectricalConfig.wheel_frontLeft_motor, ElectricalConfig.wheel_frontLeft_rev),
-				new SparkMotor(ElectricalConfig.wheel_frontRight_motor, ElectricalConfig.wheel_frontRight_rev),
-				new SparkMotor(ElectricalConfig.wheel_backLeft_motor, ElectricalConfig.wheel_backLeft_rev),
-				new SparkMotor(ElectricalConfig.wheel_backRight_motor, ElectricalConfig.wheel_backRight_rev), gamePad1);
-		drive.setScaleFactor(0.7);// Overridden by smart dashboard
-		
-		//TODO(William): But the correct PORTS in for the two sensors
-		int TEMP_distanceInputSensorPort_TEMP = -1;
-		int TEMP_gryoPort_TEMP = -1;
-		
-		String startPositionSelected = (String) chooserDT.getSelected();
-		
-		RobotPosition robotStartingPosition = RobotPosition.RIGHT;
-		
-		switch(startPositionSelected) {
-		case rightRobotPosition:
-			robotStartingPosition = RobotPosition.RIGHT;
-			break;
-		case leftRobotPosition:
-			robotStartingPosition = RobotPosition.LEFT;
-			break;
-		case middleRobotPosition:
-			robotStartingPosition = RobotPosition.MIDDLE;
-			break;
-		}
-		
-		NetworkTable TEMP_TABLE = null;
-		String nameOfLidarInNetworkTable = null;
-		String nameOfFrontUltra = null;
-		
-		m_autonomous = new AutoDrive<SparkMotor>(TEMP_distanceInputSensorPort_TEMP, drive, TEMP_gryoPort_TEMP, robotStartingPosition, 
-				TEMP_TABLE, nameOfLidarInNetworkTable, nameOfFrontUltra);
+//		////////////// Drivetrain //////////////
+//		drive = new DriveTrain<SparkMotor>(
+//				new SparkMotor(ElectricalConfig.wheel_frontLeft_motor, ElectricalConfig.wheel_frontLeft_rev),
+//				new SparkMotor(ElectricalConfig.wheel_frontRight_motor, ElectricalConfig.wheel_frontRight_rev),
+//				new SparkMotor(ElectricalConfig.wheel_backLeft_motor, ElectricalConfig.wheel_backLeft_rev),
+//				new SparkMotor(ElectricalConfig.wheel_backRight_motor, ElectricalConfig.wheel_backRight_rev), gamePad1);
+//		drive.setScaleFactor(0.7);// Overridden by smart dashboard
+//		
+//		//TODO(William): But the correct PORTS in for the two sensors
+//		int TEMP_distanceInputSensorPort_TEMP = -1;
+//		int TEMP_gryoPort_TEMP = -1;
+//		
+//		String startPositionSelected = (String) chooserDT.getSelected();
+//		
+//		RobotPosition robotStartingPosition = RobotPosition.RIGHT;
+//		
+//		switch(startPositionSelected) {
+//		case rightRobotPosition:
+//			robotStartingPosition = RobotPosition.RIGHT;
+//			break;
+//		case leftRobotPosition:
+//			robotStartingPosition = RobotPosition.LEFT;
+//			break;
+//		case middleRobotPosition:
+//			robotStartingPosition = RobotPosition.MIDDLE;
+//			break;
+//		}
+//		
+//		NetworkTable distanceTable = NetworkTable.getTable("distance");
+//		String nameOfLidarInNetworkTable = "lidar";
+//		String nameOfFrontUltra = "ultrasonic";
+//		
+//		m_autonomous = new AutoDrive<SparkMotor>(TEMP_distanceInputSensorPort_TEMP, drive, TEMP_gryoPort_TEMP, robotStartingPosition, 
+//				distanceTable, nameOfLidarInNetworkTable, nameOfFrontUltra);
 	}
 
 	public void autonomousPeriodic() {
-		m_autonomous.update();
+//		m_autonomous.update();
 	}
 
 	public void teleopInit() {
-		SmartDashboard.putString("Mode", "Teleop");
-		SmartDashboard.putNumber("buttonPort", 1);
+//		SmartDashboard.putString("Mode", "Teleop");
+//		SmartDashboard.putNumber("buttonPort", 1);
 	}
 
 	/**
 	 * This function is called periodically during operator control
 	 */
 	public void teleopPeriodic() {
-
-		drive.setScaleFactor(SmartDashboard.getNumber("Driving Scale Factor"));
-		drive.setScaleFactor(SmartDashboard.getNumber("Turning Scale Factor"), true);
-		SmartDashboard.putNumber("rightY", gamePad1.sticks.RIGHT_Y.getScaled());
-
-		driveSelected = (String) chooserDT.getSelected();
-		switch (driveSelected) {
-		case driveNone:
-			drive.setUpdate(false);
-			break;
-		case driveForza:
-			if (drive.getDriveType() != DriveTrain.FORZA_DRIVE)
-				drive.useForzaDrive();
-			if (!drive.shouldUpdate())
-				drive.setUpdate(true);
-			break;
-		case driveTank:
-			if (drive.getDriveType() != DriveTrain.TANK_DRIVE)
-				drive.useTankDrive();
-			if (!drive.shouldUpdate())
-				drive.setUpdate(true);
-		default:
-
-			break;
-		}
-
-		/*
-		 * Winch Motor
-		 */
-		lift.spinWinch(gamePad2.sticks.RIGHT_Y.getScaled());
-
-		drive.updateMotors();
+//
+//		drive.setScaleFactor(SmartDashboard.getNumber("Driving Scale Factor"));
+//		drive.setScaleFactor(SmartDashboard.getNumber("Turning Scale Factor"), true);
+//		SmartDashboard.putNumber("rightY", gamePad1.sticks.RIGHT_Y.getScaled());
+//
+//		if (gamePad2.sticks.LEFT_Y.getRaw() == 0 &&
+//			gamePad2.sticks.RIGHT_Y.getRaw() > 0) {
+//			m_winch.setPower(Math.abs(gamePad2.sticks.RIGHT_Y.getRaw()));
+//		} else {
+//			m_winch.setPower(Math.abs(gamePad2.sticks.LEFT_Y.getRaw()));			
+//		}
+//		
+//		driveSelected = (String) chooserDT.getSelected();
+//		switch (driveSelected) {
+//		case driveNone:
+//			drive.setUpdate(false);
+//			break;
+//		case driveForza:
+//			if (drive.getDriveType() != DriveTrain.FORZA_DRIVE)
+//				drive.useForzaDrive();
+//			if (!drive.shouldUpdate())
+//				drive.setUpdate(true);
+//			break;
+//		case driveTank:
+//			if (drive.getDriveType() != DriveTrain.TANK_DRIVE)
+//				drive.useTankDrive();
+//			if (!drive.shouldUpdate())
+//				drive.setUpdate(true);
+//		default:
+//
+//			break;
+//		}
+//
+//		/*
+//		 * Winch Motor
+//		 */
+//		lift.spinWinch(gamePad2.sticks.RIGHT_Y.getScaled());
+//
+//		drive.updateMotors();
 	}
 
 	/**

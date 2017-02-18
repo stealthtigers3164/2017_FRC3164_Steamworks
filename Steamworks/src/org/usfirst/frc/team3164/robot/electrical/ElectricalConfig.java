@@ -7,10 +7,7 @@ public class ElectricalConfig {
 	public static final int wheel_frontRight_motor = 0;	//Practice Bot: 2//Real Bot: 2
 	public static final int wheel_backRight_motor  = 1; //Practice Bot: 0//Real Bot: 3
 	
-	
-	public static final int lift_first_motor       = 4; //Practice Bot: 4//Real Bot: 4
-	public static final int lift_second_motor      = 5;	//Practice Bot: 5//Real Bot: 5
-	
+	public static final int winch_motor = 4;
 	
 	//Analog
 	public static final int analog_ultrasonic_port = 0; //Real Bot: 0

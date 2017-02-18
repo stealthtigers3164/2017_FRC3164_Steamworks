@@ -3,7 +3,6 @@ package org.usfirst.frc.team3164.robot.thread;
 import java.util.concurrent.locks.ReentrantLock;
 
 public abstract class BasicThread extends Thread {
-
 	public abstract void update();
 	public abstract boolean isRunning();
 	public abstract boolean runOnce();

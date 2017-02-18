@@ -36,13 +36,12 @@ public class AutoDrive<T extends BasicMotor> {
 	// - MIDDLE TURNING CONSTANTS
 
 	//NOTE: This is when the robot should start turning to the side(The initial turn)
-	private final double MIDDLE_START_TURN_DISTANCE = 1270;
-	
-	//NOTE: DO NOT REMOVE, BUT Daniel does not know what this is for
-	private final double MIDDLE_MOVE_TILL_PATH_TURN = 2819.4;
+	private final double MIDDLE_START_TURN_DISTANCE = 1143;
 
-	//NOTE: This is the distance from the middle to the right side, this is after the turn to point to the right side is complete.
-	private final double MIDDLE_TO_RIGHT_SIDE_LENGTH = ?;
+	//NOTE: This is the distance from the middle to the right side, 
+	//NOTE: this is after the turn to point to the right side is complete.
+	//NOTE: This is the total length from the end of the turn to the side of the arena
+	private final double MIDDLE_TO_RIGHT_SIDE_TOTAL_LENGTH = 6223;
 	
 	//NOTE: This is the amount of units(feet, inches, meters, ?) that should
 	//NOTE: trigger the second turn 
@@ -139,8 +138,8 @@ public class AutoDrive<T extends BasicMotor> {
 			if (currentRobotPosition == RobotPosition.MIDDLE) {
 				
 				if (lastTurn.getPositon() == RobotPosition.MIDDLE) {
-					if (backwardsDistance < MIDDLE_TO_RIGHT_SIDE_LENGTH) {
-						m_driveTrain.moveByLength(MIDDLE_TO_RIGHT_SIDE_LENGTH - backwardsDistance);
+					if (backwardsDistance < MIDDLE_TO_RIGHT_SIDE_TOTAL_LENGTH) {
+						m_driveTrain.moveByLength((MIDDLE_TO_RIGHT_SIDE_TOTAL_LENGTH) - backwardsDistance);
 					} else {
 						m_turnHandler.startTurn(currentRobotPosition, RobotPosition.RIGHT);
 					}

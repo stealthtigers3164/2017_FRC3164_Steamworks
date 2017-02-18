@@ -15,7 +15,7 @@ public class GyroHandler {
 	}
 
 	public double getRobotAngle() {
-		double angle = m_sensor.getAngle() % 360
+		double angle = m_sensor.getAngle() % 360;
 		SmartDashboard.putNumber("Robot Angle", angle);
 		return angle;
 	}
