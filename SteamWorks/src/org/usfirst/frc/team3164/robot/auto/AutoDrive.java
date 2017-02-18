@@ -106,7 +106,12 @@ public class AutoDrive<T extends BasicMotor> {
 		m_turnHandler = new TurnHandler(m_startingPosition);
 	}
 
+	private boolean m_run = true;
+	
 	public void update() {
+		if (!m_run) {
+			return;
+		}
 		//NOTE: Checks whether there is or not a turn is happening at the moment
 		if (m_turnHandler.isTurning()) {
 			//Continuing the turn
@@ -127,9 +132,15 @@ public class AutoDrive<T extends BasicMotor> {
 				if (forwardsDistance < 100) { // This is crucial
 					//TODO: Auto align code should be called here, however I do not know where that code should go because that is
 					//      not specific to this code, so it should go in some AutoAlign class
-					//if (AutoAlign.needed(
-					//AutoAlign.align();
+					if (AutoAlign.needed()) {
+						AutoAlign.align();
+					}
 				}
+				
+				if (forwardsDistance == 300) {
+					m_run = false;
+				}
+				
 				SmartDashboard.putNumber("Forward Distance when facing the peg", forwardsDistance);
 				m_driveTrain.moveByLength(forwardsDistance);
 			}
