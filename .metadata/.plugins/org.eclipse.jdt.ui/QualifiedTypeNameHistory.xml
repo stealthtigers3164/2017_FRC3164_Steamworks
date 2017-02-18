@@ -14,4 +14,8 @@
 <fullyQualifiedTypeName name="edu.wpi.first.wpilibj.AnalogGyro"/>
 <fullyQualifiedTypeName name="org.usfirst.frc.team3164.robot.electrical.motor.BasicMotor"/>
 <fullyQualifiedTypeName name="org.usfirst.frc.team3164.robot.auto.AutoDrive"/>
+<fullyQualifiedTypeName name="edu.wpi.first.wpilibj.networktables.NetworkTable"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="edu.wpi.first.wpilibj.smartdashboard.SmartDashboard"/>
+<fullyQualifiedTypeName name="org.usfirst.frc.team3164.robot.auto.RobotPosition"/>
 </qualifiedTypeNameHistroy>

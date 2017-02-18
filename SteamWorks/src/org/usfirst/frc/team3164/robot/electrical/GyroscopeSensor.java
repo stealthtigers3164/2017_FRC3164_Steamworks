@@ -25,7 +25,7 @@ public class GyroscopeSensor {
 		return m_gryo.getOffset();
 	}
 
-	public double getRate() {
-		return m_gryo.getRate();
-	}
+//	public double getRate() {
+//		return m_gryo.getRate();
+//	}
 }

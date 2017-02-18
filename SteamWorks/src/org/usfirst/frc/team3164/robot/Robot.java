@@ -2,6 +2,7 @@
 package org.usfirst.frc.team3164.robot;
 
 import org.usfirst.frc.team3164.robot.auto.AutoDrive;
+import org.usfirst.frc.team3164.robot.auto.RobotPosition;
 import org.usfirst.frc.team3164.robot.comms.Watchcat;
 import org.usfirst.frc.team3164.robot.electrical.ElectricalConfig;
 import org.usfirst.frc.team3164.robot.electrical.motor.BasicMotor;
@@ -40,10 +41,14 @@ public class Robot extends IterativeRobot {
 	private Camera camera;
 
 	private ThreadQueue<WorkerThread> queue;
+	private final String rightRobotPosition = "Right";
+	private final String leftRobotPosition = "Left";
+	private final String middleRobotPosition = "Middle";
 
 	private /* final */ NetworkTable grip = NetworkTable.getTable("grip");
 	
-	private AutoDrive m_autonomous;
+	private AutoDrive<SparkMotor> m_autonomous;
+	private SendableChooser m_startPositionChooser;
 
 	public void robotInit() {
 		// TEMP
@@ -82,18 +87,18 @@ public class Robot extends IterativeRobot {
 		chooserDT.addObject("Tank Drive", driveTank);
 		chooserDT.addObject("No Driving", driveNone);
 		SmartDashboard.putData("Drivetrain", chooserDT);
+		
+		m_startPositionChooser = new SendableChooser();
+		m_startPositionChooser.addDefault("RIGHT", rightRobotPosition);
+		m_startPositionChooser.addObject("LEFT", leftRobotPosition);
+		m_startPositionChooser.addObject("MIDDLE", middleRobotPosition);
+		SmartDashboard.putData("StartPosition", m_startPositionChooser);
 
 		drive.useForzaDrive();
 		SmartDashboard.putNumber("Driving Scale Factor", 1);
 		SmartDashboard.putNumber("Turning Scale Factor", 1);
 
 		queue = new ThreadQueue<WorkerThread>();
-
-		//TODO(William): But the correct PORTS in for the two sensors
-		int TEMP_distanceInputSensorPort_TEMP = -1;
-		int TEMP_gryoPort_TEMP = -1;
-		
-		m_autonomous = new AutoDrive<SparkMotor>(TEMP_distanceInputSensorPort_TEMP, drive, TEMP_gryoPort_TEMP);
 	}
 
 	/**
@@ -108,11 +113,44 @@ public class Robot extends IterativeRobot {
 	 * SendableChooser make sure to add them to the chooser code above as well.
 	 */
 	public void autonomousInit() {
-
+		////////////// Drivetrain //////////////
+		drive = new DriveTrain<SparkMotor>(
+				new SparkMotor(ElectricalConfig.wheel_frontLeft_motor, ElectricalConfig.wheel_frontLeft_rev),
+				new SparkMotor(ElectricalConfig.wheel_frontRight_motor, ElectricalConfig.wheel_frontRight_rev),
+				new SparkMotor(ElectricalConfig.wheel_backLeft_motor, ElectricalConfig.wheel_backLeft_rev),
+				new SparkMotor(ElectricalConfig.wheel_backRight_motor, ElectricalConfig.wheel_backRight_rev), gamePad1);
+		drive.setScaleFactor(0.7);// Overridden by smart dashboard
+		
+		//TODO(William): But the correct PORTS in for the two sensors
+		int TEMP_distanceInputSensorPort_TEMP = -1;
+		int TEMP_gryoPort_TEMP = -1;
+		
+		String startPositionSelected = (String) chooserDT.getSelected();
+		
+		RobotPosition robotStartingPosition = RobotPosition.RIGHT;
+		
+		switch(startPositionSelected) {
+		case rightRobotPosition:
+			robotStartingPosition = RobotPosition.RIGHT;
+			break;
+		case leftRobotPosition:
+			robotStartingPosition = RobotPosition.LEFT;
+			break;
+		case middleRobotPosition:
+			robotStartingPosition = RobotPosition.MIDDLE;
+			break;
+		}
+		
+		NetworkTable TEMP_TABLE = null;
+		String nameOfLidarInNetworkTable = null;
+		String nameOfFrontUltra = null;
+		
+		m_autonomous = new AutoDrive<SparkMotor>(TEMP_distanceInputSensorPort_TEMP, drive, TEMP_gryoPort_TEMP, robotStartingPosition, 
+				TEMP_TABLE, nameOfLidarInNetworkTable, nameOfFrontUltra);
 	}
 
 	public void autonomousPeriodic() {
-
+		m_autonomous.update();
 	}
 
 	public void teleopInit() {
