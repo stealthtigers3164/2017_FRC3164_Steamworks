@@ -4,7 +4,11 @@
 import sys
 import time
 from networktables import NetworkTables
+from networktables.util import ntproperty
 import serial
+from time import sleep
+
+
 
 # configure the serial connections (the parameters differs on the device you are connecting to)
 ser = serial.Serial(
@@ -16,43 +20,60 @@ ser = serial.Serial(
 	bytesize=serial.SEVENBITS
 )
 
-ser.open()
+#ser.open()
 ser.isOpen()
 
-print("Enter your commands below.\r\nInsert \"exit\" to leave the application.")
+print("Connecting to roboRIO and Ardino\n")
 
-NetworkTables.initialize("roborio-3164-frc.local")
-#NetworkTables.initialize("jrue.local")
+#NetworkTables.initialize("roborio-3164-frc.local")
+NetworkTables.initialize("jrue.local")
 
 
-class SomeClient(object):
-    '''Demonstrates an object with magic networktables properties'''
-    
-    robotTime = ntproperty('/SmartDashboard/robotTime', 0, writeDefault=False)
-    
-    dsUltra = ntproperty('/SmartDashboard/Distance_Ultrasonic', 0)
+def isint(value):
+  try:
+    int(value)
+    return True
+  except:
+    return False
 
-c = SomeClient()
+def isstr(value):
+  try:
+    str(value)
+    return True
+  except:
+    return False
 
-input=1
+class Distance(object):
+    dLidar = ntproperty('/distance/lidar', 0)
+    dUltra = ntproperty('/distance/ultrasonic', 0)
+
+d = Distance()
+
+
 while 1 :
-	# get keyboard input
-	input = input(">> ")
-        # Python 2 users
-        # input = raw_input(">> ")
-	if input == 'exit':
-		ser.close()
-		exit()
-	else:
-		# send the character to the device
-		# (note that I happend a \r\n carriage return and line feed to the characters - this is requested by my device)
-		# ser.write(input + '\r\n')
-		out = ''
-		# let's wait one second before reading output (let's give device time to answer)
-		time.sleep(1)
-		while ser.inWaiting() > 0:
-			out += ser.read(1)
-			
-		if out != '':
-			print(">>" + out)
-			c.dsUltra = out
+	#output should be |u:333|l:333|
+	try:
+		out = ""
+		out = ser.readline().decode("utf-8") 
+		#print(out)
+
+		outSplit = out.split("|")
+		for split in outSplit:
+			num = -1
+			typ = ""
+			for twiceSplit in split.split(":"):
+				if isint(twiceSplit):
+					if int(twiceSplit) > 0:
+						num = int(twiceSplit)
+				if (str(twiceSplit) == "u") or (str(twiceSplit) == "l"):
+					typ = twiceSplit
+			#print("twiceSplit: " + split + " |num:" + str(num) + "|typ:" + typ)
+			if str(typ) == "u":
+				d.dUltra = num
+			if typ == "l":
+				d.dLidar = num
+	except:
+		print ("exception")
+	sleep(0.05)
+	
+
