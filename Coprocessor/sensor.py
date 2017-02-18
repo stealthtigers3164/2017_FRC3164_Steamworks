@@ -43,6 +43,15 @@ def isstr(value):
   except:
     return False
 
+def readLastLine(ser):
+    last_data=''
+    while True:
+        data=ser.readline()
+        if data!='':
+            last_data=data
+        else:
+            return last_data
+
 class Distance(object):
     dLidar = ntproperty('/distance/lidar', 0)
     dUltra = ntproperty('/distance/ultrasonic', 0)
@@ -55,7 +64,7 @@ while 1 :
 	try:
 		out = ""
 		out = ser.readline().decode("utf-8") 
-		#print(out)
+		#out = readLastLine(ser)
 
 		outSplit = out.split("|")
 		for split in outSplit:
@@ -72,8 +81,10 @@ while 1 :
 				d.dUltra = num
 			if typ == "l":
 				d.dLidar = num
+		ser.flush()
 	except:
+		sleep(.1)
 		print ("exception")
-	sleep(0.05)
+	sleep(0.025)
 	
 
