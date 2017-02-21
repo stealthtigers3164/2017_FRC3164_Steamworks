@@ -200,7 +200,7 @@ public class DriveTrain<T extends BasicMotor> extends MotorSet<T> {
 	}
 
 	public void turnLeftByDegrees(double d) {
-		double clampedValue = clamp(d, 0, 1);
+		double clampedValue = clamp(d, 0, .5);
 		SmartDashboard.putNumber("turnLeftByDegrees pwr", clampedValue);
 		
 		setRightPower(-clampedValue);
@@ -208,7 +208,7 @@ public class DriveTrain<T extends BasicMotor> extends MotorSet<T> {
 	}
 
 	public void moveByLength(double d) {
-		double clampedValue = clamp(d, 0, 1);
+		double clampedValue = clamp(d, 0, .5);
 		SmartDashboard.putNumber("moveByLength pwr", clampedValue);
 		setLeftPower(clampedValue);
 		setRightPower(clampedValue);		

@@ -85,7 +85,7 @@ public class AutoDrive<T extends BasicMotor> {
 
 	//Constructor
 	//This initializes all of the variables that it needs to 
-	public AutoDrive(int distanceInputSensorPort, DriveTrain<T> driveTrain, int gryoPort, RobotPosition startingPosition,
+	public AutoDrive(DriveTrain<T> driveTrain, RobotPosition startingPosition,
 					 NetworkTable sensorNetworkTable, String lidarNetworkTableName, String frontUltraNetworkTableName) {
 		
 		//NOTE: If the robot never gets out of a turn because the degree is actually the same as the wanted one
@@ -101,7 +101,7 @@ public class AutoDrive<T extends BasicMotor> {
 		m_frontUltraNetworkTableName = frontUltraNetworkTableName;
 		
 		//NOTE: Turning code initialization
-		m_gyroHandler = new GyroHandler(gryoPort);
+		m_gyroHandler = new GyroHandler(0);
 		m_startingPosition = startingPosition;
 		m_turnHandler = new TurnHandler(m_startingPosition);
 	}
@@ -139,6 +139,8 @@ public class AutoDrive<T extends BasicMotor> {
 				
 				if (forwardsDistance == 300) {
 					m_run = false;
+					m_driveTrain.setLeftPower(0);
+					m_driveTrain.setRightPower(0);
 				}
 				
 				SmartDashboard.putNumber("Forward Distance when facing the peg", forwardsDistance);
@@ -152,6 +154,8 @@ public class AutoDrive<T extends BasicMotor> {
 					if (backwardsDistance < MIDDLE_TO_RIGHT_SIDE_TOTAL_LENGTH) {
 						m_driveTrain.moveByLength((MIDDLE_TO_RIGHT_SIDE_TOTAL_LENGTH) - backwardsDistance);
 					} else {
+						m_driveTrain.setLeftPower(0);
+						m_driveTrain.setRightPower(0);
 						m_turnHandler.startTurn(currentRobotPosition, RobotPosition.RIGHT);
 					}
 				}
@@ -159,12 +163,16 @@ public class AutoDrive<T extends BasicMotor> {
 				if (backwardsDistance < MIDDLE_START_TURN_DISTANCE) {
 					m_driveTrain.moveByLength(MIDDLE_START_TURN_DISTANCE - backwardsDistance);
 				} else {
+					m_driveTrain.setLeftPower(0);
+					m_driveTrain.setRightPower(0);
 					m_turnHandler.startTurn(currentRobotPosition, RobotPosition.RIGHT);
 				}
 			} else {
 				if (backwardsDistance < SIDE_START_TURN_DISTANCE) {
 					m_driveTrain.moveByLength(SIDE_START_TURN_DISTANCE - backwardsDistance);
 				} else {
+					m_driveTrain.setLeftPower(0);
+					m_driveTrain.setRightPower(0);
 					m_turnHandler.startTurn(currentRobotPosition, RobotPosition.PEG);
 				}
 			}
