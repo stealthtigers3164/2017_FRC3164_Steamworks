@@ -15,20 +15,9 @@ public class GyroscopeSensor {
 	}
 
 	public double getAngle() {
-		return m_gryo.getAngle();
+		return m_gryo.getAngle() % 360;
 	}
-
-	/*public int getCenter() {
-		return m_gryo.getCenter();
-	}
-
-	public double getOffset() {
-		return m_gryo.getOffset();
-	}*/
-
-//	public double getRate() {
-//		return m_gryo.getRate();
-//	}
+	
 	public void resetGyro() {
 		this.m_gryo.reset();
 	}

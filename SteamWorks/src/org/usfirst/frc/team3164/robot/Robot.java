@@ -5,6 +5,7 @@ import org.usfirst.frc.team3164.robot.auto.AutoDrive;
 import org.usfirst.frc.team3164.robot.auto.RobotPosition;
 import org.usfirst.frc.team3164.robot.comms.Watchcat;
 import org.usfirst.frc.team3164.robot.electrical.ElectricalConfig;
+import org.usfirst.frc.team3164.robot.electrical.GyroscopeSensor;
 import org.usfirst.frc.team3164.robot.electrical.motor.BasicMotor;
 import org.usfirst.frc.team3164.robot.electrical.motor.SparkMotor;
 import org.usfirst.frc.team3164.robot.input.Gamepad;
@@ -118,8 +119,8 @@ public class Robot extends IterativeRobot {
 		String nameOfLidarInNetworkTable = "lidar";
 		String nameOfFrontUltra = "ultrasonic";
 		
-		m_autonomous = new AutoDrive<SparkMotor>(drive, robotStartingPosition, 
-				distanceTable, nameOfLidarInNetworkTable, nameOfFrontUltra);
+		//m_autonomous = new AutoDrive<SparkMotor>(drive, robotStartingPosition, 
+		//		distanceTable, nameOfLidarInNetworkTable, nameOfFrontUltra);
 	}
 
 	/**
@@ -156,8 +157,7 @@ public class Robot extends IterativeRobot {
 
 		if (gamePad1.trigger.getRightPressed(true)) {
 			m_winch.setPower(1);
-		}
-		if (gamePad1.buttons.BUTTON_B.isOn()) {
+		} else {
 			m_winch.setPower(0);
 		}
 		
