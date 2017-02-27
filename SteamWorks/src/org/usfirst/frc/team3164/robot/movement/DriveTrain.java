@@ -213,4 +213,18 @@ public class DriveTrain<T extends BasicMotor> extends MotorSet<T> {
 		setLeftPower(clampedValue);
 		setRightPower(clampedValue);		
 	}
+
+	public void moveLeftByCameraPixels(int Pixels) {
+		//Max distance in pixels is 320
+		double clampedValue = clamp(Pixels, 0, .5);		
+		setLeftPower(clampedValue);
+		setRightPower(-clampedValue);		
+	}
+	
+	public void moveRightByCameraPixels(int Pixels) {
+		//Max distance in pixels is 320
+		double clampedValue = clamp(Pixels, 0, .5);		
+		setLeftPower(clampedValue);
+		setRightPower(-clampedValue);		
+	}
 }

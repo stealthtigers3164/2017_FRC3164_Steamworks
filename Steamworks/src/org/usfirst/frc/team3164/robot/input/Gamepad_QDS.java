@@ -1,7 +1,6 @@
 package org.usfirst.frc.team3164.robot.input;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Gamepad_QDS {
 	public Joystick jstick;

@@ -1,7 +1,6 @@
 package org.usfirst.frc.team3164.robot.electrical;
 
 import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class LimitSwitch {

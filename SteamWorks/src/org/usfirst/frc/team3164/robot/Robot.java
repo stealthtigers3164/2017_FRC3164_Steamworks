@@ -1,16 +1,13 @@
-
 package org.usfirst.frc.team3164.robot;
 
+import org.usfirst.frc.team3164.robot.auto.AutoAlign;
 import org.usfirst.frc.team3164.robot.auto.AutoDrive;
 import org.usfirst.frc.team3164.robot.auto.RobotPosition;
 import org.usfirst.frc.team3164.robot.comms.Watchcat;
 import org.usfirst.frc.team3164.robot.electrical.ElectricalConfig;
-import org.usfirst.frc.team3164.robot.electrical.GyroscopeSensor;
-import org.usfirst.frc.team3164.robot.electrical.motor.BasicMotor;
 import org.usfirst.frc.team3164.robot.electrical.motor.SparkMotor;
 import org.usfirst.frc.team3164.robot.input.Gamepad;
 import org.usfirst.frc.team3164.robot.movement.DriveTrain;
-import org.usfirst.frc.team3164.robot.movement.Lift;
 import org.usfirst.frc.team3164.robot.thread.ThreadQueue;
 import org.usfirst.frc.team3164.robot.thread.WorkerThread;
 import org.usfirst.frc.team3164.robot.vision.Camera;
@@ -155,6 +152,11 @@ public class Robot extends IterativeRobot {
 		drive.setScaleFactor(SmartDashboard.getNumber("Turning Scale Factor"), true);
 		SmartDashboard.putNumber("rightY", gamePad1.sticks.RIGHT_Y.getScaled());
 
+		if (gamePad1.buttons.BUTTON_LB.isOn() || 
+			gamePad1.buttons.BUTTON_LB.isOn()) {
+			AutoAlign.align(grip, drive);
+		}
+		
 		if (gamePad1.trigger.getRightPressed(true)) {
 			m_winch.setPower(1);
 		} else {
