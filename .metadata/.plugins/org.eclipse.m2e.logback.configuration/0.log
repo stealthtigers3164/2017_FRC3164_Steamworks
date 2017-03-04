@@ -141,3 +141,4 @@ java.net.UnknownHostException: services.gradle.org
 2017-02-14 17:17:08,666 [Worker-21] INFO  c.g.t.t.d.PublishedGradleVersions - Gradle version information cache file is out-of-date. Remote download required.
 2017-02-14 20:47:41,900 [Worker-3] INFO  c.g.t.t.d.PublishedGradleVersions - Gradle version information cache file is not out-of-date. No remote download required.
 2017-02-15 16:32:49,460 [Worker-30] INFO  c.g.t.t.d.PublishedGradleVersions - Gradle version information cache file is not out-of-date. No remote download required.
+2017-03-04 11:34:52,749 [main] INFO  c.g.t.t.d.PublishedGradleVersions - Gradle version information cache file is out-of-date. Remote download required.
