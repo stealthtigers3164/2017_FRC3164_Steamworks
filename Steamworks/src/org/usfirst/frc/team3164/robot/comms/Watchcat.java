@@ -1,7 +1,5 @@
 package org.usfirst.frc.team3164.robot.comms;
 
-
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -9,36 +7,36 @@ import java.util.UUID;
 import org.usfirst.frc.team3164.robot.electrical.motor.BasicMotor;;
 
 public class Watchcat {
-	private static int timeout;//In ms
-	private static Thread wdTrd;
-	private static WDTask wdTsk;
+	//private static int timeout;//In ms
+	//private static Thread wdTrd;
+	//private static WDTask wdTsk;
 	public static boolean isRobotDead = false;
-	private static long last;
+	//private static long last;
 	private static MotorRegistry mReg;
 	
 	public static void init() {
-		timeout = 200;
-		last = new Date().getTime();
+		//timeout = 200;
+		//last = new Date().getTime();
 		mReg = new MotorRegistry();
-		wdTsk = new WDTask();
-		wdTrd = new Thread(wdTsk);
+		//wdTsk = new WDTask();
+		//wdTrd = new Thread(wdTsk);
 		//wdTrd.start();
 	}
 	
-	private static class WDTask implements Runnable {
-		@Override
-		public void run() {
-			while(true) {
-				long now = new Date().getTime();
-				if(last+timeout <= now) {
-					killRobot();
-				}
-				try {
-					Thread.sleep(10);
-				} catch(Exception ex) {}
-			}
-		}
-	}
+//	private static class WDTask implements Runnable {
+//		@Override
+//		public void run() {
+//			while(true) {
+//				long now = new Date().getTime();
+//				if(last+timeout <= now) {
+//					killRobot();
+//				}
+//				try {
+//					Thread.sleep(10);
+//				} catch(Exception ex) {}
+//			}
+//		}
+//	}
 	
 	public static class MotorRegistry {
 		private Map<UUID, BasicMotor> motors = new HashMap<UUID, BasicMotor>();
@@ -78,7 +76,7 @@ public class Watchcat {
 	}
 	
 	public static void feed() {
-		last = new Date().getTime();
+		//last = new Date().getTime();
 		reviveRobot();
 	}
 	

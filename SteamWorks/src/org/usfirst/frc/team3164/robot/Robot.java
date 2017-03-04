@@ -1,15 +1,13 @@
-
 package org.usfirst.frc.team3164.robot;
 
+import org.usfirst.frc.team3164.robot.auto.AutoAlign;
 import org.usfirst.frc.team3164.robot.auto.AutoDrive;
 import org.usfirst.frc.team3164.robot.auto.RobotPosition;
 import org.usfirst.frc.team3164.robot.comms.Watchcat;
 import org.usfirst.frc.team3164.robot.electrical.ElectricalConfig;
-import org.usfirst.frc.team3164.robot.electrical.motor.BasicMotor;
 import org.usfirst.frc.team3164.robot.electrical.motor.SparkMotor;
 import org.usfirst.frc.team3164.robot.input.Gamepad;
 import org.usfirst.frc.team3164.robot.movement.DriveTrain;
-import org.usfirst.frc.team3164.robot.movement.Lift;
 import org.usfirst.frc.team3164.robot.thread.ThreadQueue;
 import org.usfirst.frc.team3164.robot.thread.WorkerThread;
 import org.usfirst.frc.team3164.robot.vision.Camera;
@@ -36,7 +34,6 @@ public class Robot extends IterativeRobot {
 
 	private DriveTrain<SparkMotor> drive;
 	private Gamepad gamePad1;
-	private Gamepad gamePad2;
 	private Camera camera;
 
 	private ThreadQueue<WorkerThread> queue;
@@ -64,7 +61,6 @@ public class Robot extends IterativeRobot {
 
 		////////////// Gamepad //////////////
 		gamePad1 = new Gamepad(0);
-		gamePad2 = new Gamepad(1);
 
 		////////////// Drivetrain //////////////
 		drive = new DriveTrain<SparkMotor>(
@@ -77,7 +73,6 @@ public class Robot extends IterativeRobot {
 		m_winch = new SparkMotor(ElectricalConfig.winch_motor, true);
 		
 		gamePad1.sticks.setDeadzones();
-		gamePad2.sticks.setDeadzones();
 
 		////////////// Driving //////////////
 
@@ -98,31 +93,8 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Turning Scale Factor", 1);
 
 		queue = new ThreadQueue<WorkerThread>();
-	}
-
-	/**
-	 * This autonomous (along with the chooser code above) shows how to select
-	 * between different autonomous modes using the dashboard. The sendable
-	 * chooser code works with the Java SmartDashboard. If you prefer the
-	 * LabVIEW Dashboard, remove all of the chooser code and uncomment the
-	 * getString line to get the auto name from the text box below the Gyro
-	 *
-	 * You can add additional auto modes by adding additional comparisons to the
-	 * switch structure below with additional strings. If using the
-	 * SendableChooser make sure to add them to the chooser code above as well.
-	 */
-	public void autonomousInit() {
-		////////////// Drivetrain //////////////
-		drive = new DriveTrain<SparkMotor>(
-				new SparkMotor(ElectricalConfig.wheel_frontLeft_motor, ElectricalConfig.wheel_frontLeft_rev),
-				new SparkMotor(ElectricalConfig.wheel_frontRight_motor, ElectricalConfig.wheel_frontRight_rev),
-				new SparkMotor(ElectricalConfig.wheel_backLeft_motor, ElectricalConfig.wheel_backLeft_rev),
-				new SparkMotor(ElectricalConfig.wheel_backRight_motor, ElectricalConfig.wheel_backRight_rev), gamePad1);
-		drive.setScaleFactor(0.7);// Overridden by smart dashboard
 		
-		//TODO(William): But the correct PORTS in for the two sensors
-		int TEMP_distanceInputSensorPort_TEMP = -1;
-		int TEMP_gryoPort_TEMP = -1;
+
 		
 		String startPositionSelected = (String) chooserDT.getSelected();
 		
@@ -144,8 +116,22 @@ public class Robot extends IterativeRobot {
 		String nameOfLidarInNetworkTable = "lidar";
 		String nameOfFrontUltra = "ultrasonic";
 		
-		m_autonomous = new AutoDrive<SparkMotor>(TEMP_distanceInputSensorPort_TEMP, drive, TEMP_gryoPort_TEMP, robotStartingPosition, 
-				distanceTable, nameOfLidarInNetworkTable, nameOfFrontUltra);
+		//m_autonomous = new AutoDrive<SparkMotor>(drive, robotStartingPosition, 
+		//		distanceTable, nameOfLidarInNetworkTable, nameOfFrontUltra);
+	}
+
+	/**
+	 * This autonomous (along with the chooser code above) shows how to select
+	 * between different autonomous modes using the dashboard. The sendable
+	 * chooser code works with the Java SmartDashboard. If you prefer the
+	 * LabVIEW Dashboard, remove all of the chooser code and uncomment the
+	 * getString line to get the auto name from the text box below the Gyro
+	 *
+	 * You can add additional auto modes by adding additional comparisons to the
+	 * switch structure below with additional strings. If using the
+	 * SendableChooser make sure to add them to the chooser code above as well.
+	 */
+	public void autonomousInit() {
 	}
 
 	public void autonomousPeriodic() {
@@ -166,11 +152,15 @@ public class Robot extends IterativeRobot {
 		drive.setScaleFactor(SmartDashboard.getNumber("Turning Scale Factor"), true);
 		SmartDashboard.putNumber("rightY", gamePad1.sticks.RIGHT_Y.getScaled());
 
-		if (gamePad2.sticks.LEFT_Y.getRaw() == 0 &&
-			gamePad2.sticks.RIGHT_Y.getRaw() > 0) {
-			m_winch.setPower(Math.abs(gamePad2.sticks.RIGHT_Y.getRaw()));
+		if (gamePad1.buttons.BUTTON_LB.isOn() || 
+			gamePad1.buttons.BUTTON_LB.isOn()) {
+			AutoAlign.align(grip, drive);
+		}
+		
+		if (gamePad1.trigger.getRightPressed(true)) {
+			m_winch.setPower(1);
 		} else {
-			m_winch.setPower(Math.abs(gamePad2.sticks.LEFT_Y.getRaw()));			
+			m_winch.setPower(0);
 		}
 		
 		driveSelected = (String) chooserDT.getSelected();
