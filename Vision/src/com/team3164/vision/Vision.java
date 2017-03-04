@@ -47,6 +47,8 @@ public class Vision {
 				double[] area = new double[visionPipe.filterContoursOutput().size()];
 				double[] posx = new double[visionPipe.filterContoursOutput().size()];
 				double[] posy = new double[visionPipe.filterContoursOutput().size()];
+				double[] posxC = new double[visionPipe.filterContoursOutput().size()];
+				double[] posyC = new double[visionPipe.filterContoursOutput().size()];
 				
 				for (int i = 0; i < visionPipe.filterContoursOutput().size(); i++) {
 					Rect rect = Imgproc.boundingRect(visionPipe.filterContoursOutput().get(i));
@@ -56,6 +58,8 @@ public class Vision {
 					area[i] = rect.area();
 					posx[i] = rect.x;
 					posy[i] = rect.y;
+					posxC[i] = rect.x + 0.5*(rect.width);
+					posyC[i] = rect.y + 0.5*(rect.height);
 					
 				}
 				table.putString("test", "hello");
@@ -63,8 +67,10 @@ public class Vision {
 					table.putNumberArray("width", width);
 					table.putNumberArray("height", height);
 					table.putNumberArray("area", area);
-					table.putNumberArray("posx", posx);
-					table.putNumberArray("posy", posy);
+					table.putNumberArray("x", posx);
+					table.putNumberArray("y", posy);
+					table.putNumberArray("centerX", posxC);
+					table.putNumberArray("centerY", posyC);
 				//}
 			}
 		}
