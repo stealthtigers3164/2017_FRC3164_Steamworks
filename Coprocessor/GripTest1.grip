@@ -1,7 +1,7 @@
 <grip:Pipeline>
   <sources>
     <grip:Camera>
-      <property name="deviceNumber" value="0"/>
+      <property name="address" value="http://coprocessor.local:8080/?action=stream&amp;type=.mjpg"/>
     </grip:Camera>
   </sources>
   <steps>
@@ -9,20 +9,20 @@
       <grip:Input step="0" socket="0"/>
       <grip:Input step="0" socket="1">
         <value>
-          <double>27.51798561151079</double>
-          <double>94.43123938879455</double>
+          <double>40.67796610169491</double>
+          <double>92.23404255319147</double>
         </value>
       </grip:Input>
       <grip:Input step="0" socket="2">
         <value>
-          <double>68.79522442689382</double>
-          <double>181.89539115259643</double>
+          <double>74.17704229160556</double>
+          <double>191.70212765957447</double>
         </value>
       </grip:Input>
       <grip:Input step="0" socket="3">
         <value>
-          <double>45.86330935251798</double>
-          <double>107.80135823429542</double>
+          <double>139.26553672316385</double>
+          <double>234.65425531914894</double>
         </value>
       </grip:Input>
       <grip:Output step="0" socket="0" previewed="true"/>
@@ -47,26 +47,26 @@
     <grip:Step name="Filter Contours">
       <grip:Input step="3" socket="0"/>
       <grip:Input step="3" socket="1">
-        <value>49.0</value>
+        <value>102.0</value>
       </grip:Input>
       <grip:Input step="3" socket="2">
         <value>0.0</value>
       </grip:Input>
       <grip:Input step="3" socket="3">
-        <value>20.0</value>
+        <value>30.0</value>
       </grip:Input>
       <grip:Input step="3" socket="4">
         <value>1000.0</value>
       </grip:Input>
       <grip:Input step="3" socket="5">
-        <value>0.0</value>
+        <value>60.0</value>
       </grip:Input>
       <grip:Input step="3" socket="6">
         <value>1000.0</value>
       </grip:Input>
       <grip:Input step="3" socket="7">
         <value>
-          <double>11.690647482014388</double>
+          <double>72.13020792157482</double>
           <double>100.0</double>
         </value>
       </grip:Input>
@@ -115,20 +115,20 @@
       <grip:Input step="4" socket="0"/>
     </grip:Connection>
     <grip:Connection>
-      <grip:Output step="1" socket="0" previewed="false"/>
-      <grip:Input step="2" socket="0"/>
-    </grip:Connection>
-    <grip:Connection>
-      <grip:Output step="0" socket="0" previewed="true"/>
-      <grip:Input step="1" socket="0"/>
-    </grip:Connection>
-    <grip:Connection>
       <grip:Output step="2" socket="0" previewed="false"/>
       <grip:Input step="3" socket="0"/>
     </grip:Connection>
     <grip:Connection>
       <grip:Output source="0" socket="0" previewed="true"/>
       <grip:Input step="0" socket="0"/>
+    </grip:Connection>
+    <grip:Connection>
+      <grip:Output step="0" socket="0" previewed="true"/>
+      <grip:Input step="1" socket="0"/>
+    </grip:Connection>
+    <grip:Connection>
+      <grip:Output step="1" socket="0" previewed="false"/>
+      <grip:Input step="2" socket="0"/>
     </grip:Connection>
   </connections>
   <settings>
@@ -141,7 +141,7 @@
     <deployJvmOptions>-Xmx50m -XX:-OmitStackTraceInFastThrow -XX:+HeapDumpOnOutOfMemoryError -XX:MaxNewSize=16m</deployJvmOptions>
   </settings>
   <codeGenerationSettings>
-    <language>Python</language>
+    <language>Java</language>
     <className>GripPipeline</className>
     <implementWpilibPipeline>false</implementWpilibPipeline>
     <saveDir>/Users/will/GRIP</saveDir>

@@ -24,22 +24,25 @@ public class Vision {
 		visionPipe = new GripPipeline();
 		
 		networkTables.setClientMode();
-		networkTables.setIPAddress("jrue.local");//Change to roborio-3164-FRC.local
+		//networkTables.setIPAddress("jrue.local");
+		networkTables.setIPAddress("roborio-3164-FRC.local");
 		
 		networkTables.initialize();
 		
 		NetworkTable table = networkTables.getTable("/grip");
 		
-		VideoCapture camera = new VideoCapture(0);
-		
+		//VideoCapture camera = new VideoCapture(0);
+		VideoCapture camera = new VideoCapture();
+		camera.open("http://127.0.0.1:8080/?action=stream&type=file.mjpg");
 		
 		
 		//camera.set(propId, value)
 		
 		
 		while(true) {
-			Mat img =new Mat();
-			if(camera.read(img)) {
+		
+			Mat img = new Mat();
+			if(camera.retrieve(img)) {
 				visionPipe.process(img);
 				
 				double[] width = new double[visionPipe.filterContoursOutput().size()];
@@ -73,6 +76,14 @@ public class Vision {
 					table.putNumberArray("centerY", posyC);
 				//}
 			}
+			
+			try {
+				Thread.sleep(5);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		}
 
 	}
