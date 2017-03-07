@@ -42,7 +42,12 @@ public class Vision {
 			Mat img = new Mat();
 			camera.grab();
 			if(camera.retrieve(img)) {
-				System.out.print("Retreive Success");
+				try {
+					Thread.sleep(50);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				visionPipe.process(img);
 				
 				/*double[] width = new double[visionPipe.filterContoursOutput().size()];
