@@ -26,7 +26,7 @@ capture.set(4, 480) #height
 capture.set(21, 1) #autoexposure
 
 capture.set(15, 0.8) #exposure
-#capture.set(10, 20 ) #brightness
+capture.set(10, 20 ) #brightness
 
  
 
