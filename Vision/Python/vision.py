@@ -23,6 +23,12 @@ if capture.isOpened() == False:
 capture.set(3, 640) #width
 capture.set(4, 480) #height
 
+#capture.set(21, 1) #autoexposure
+
+#capture.set(15, 0.8) #exposure
+#capture.set(10, 20 ) #brightness
+
+ 
 
 
 
@@ -35,12 +41,9 @@ grip = GripPipeline()
 
 
 while True:
-	capture.set(21, 1) #autoexposure
-
-	capture.set(15, 0.8) #exposure
-	capture.set(10, 20 ) #brightness
-
-
+	os.system("uvcdynctrl --device=video0 -s 'Exposure, Auto' 1")
+	os.system("uvcdynctrl --device=video0 -s 'Exposure (Absolute)' 9")
+	os.system("uvcdynctrl --device=video0 -s 'Brightness' 9")
 	capture.grab()
 	ret, img = capture.retrieve()
 
