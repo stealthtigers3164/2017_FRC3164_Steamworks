@@ -1,16 +1,12 @@
 package com.team3164.vision;
 
 
-import com.team3164.vision.GripPipeline; 
 import org.opencv.core.Core;
-import org.opencv.core.CvType;
 import org.opencv.core.Mat;
-import org.opencv.core.MatOfInt;
-import org.opencv.core.MatOfPoint;
-import org.opencv.core.MatOfPoint2f;
 import org.opencv.core.Rect;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.videoio.VideoCapture;
+
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 
@@ -42,7 +38,7 @@ public class Vision {
 		
 		while(true) {
 			Boolean bk = false;
-			float x, y, h, w, x2, y2, h2, w2;
+			float x = 0, y = 0, h = 0, w = 0, x2 = 0, y2 = 0, h2 = 0, w2 = 0;
 			Mat img = new Mat();
 			if(camera.retrieve(img)) {
 				visionPipe.process(img);
