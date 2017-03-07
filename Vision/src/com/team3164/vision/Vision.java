@@ -28,9 +28,9 @@ public class Vision {
 		
 		NetworkTable table = networkTables.getTable("/grip");
 		
-		VideoCapture camera = new VideoCapture(0);
-		//VideoCapture camera = new VideoCapture();
-		//camera.open("http://127.0.0.1:8080/?action=stream&type=file.mjpg");
+		//VideoCapture camera = new VideoCapture(0);
+		VideoCapture camera = new VideoCapture();
+		camera.open("http://127.0.0.1:8080/?action=stream&type=file.mjpg");
 		
 		
 		//camera.set(propId, value)
