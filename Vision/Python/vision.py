@@ -111,7 +111,7 @@ while True:
 
 	time.sleep(0.1)
 	print("\nCYCLE\n")
-	cv2.imshow('image',img)
-	cv2.waitKey(0)
-	cv2.destroyAllWindows()
+	#cv2.imshow('image',img)
+	#cv2.waitKey(0)
+	#cv2.destroyAllWindows()
 capture.release()
