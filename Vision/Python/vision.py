@@ -30,8 +30,7 @@ capture.set(15, 0.8) #exposure
 
  
 
-os.system("uvcdynctrl --device=video0 -s 'Exposure, Auto' 1")
-os.system("uvcdynctrl --device=video0 -s 'Exposure (Absolute)' 9")
+
 
 
 
@@ -42,6 +41,8 @@ grip = GripPipeline()
 
 
 while True:
+	os.system("uvcdynctrl --device=video0 -s 'Exposure, Auto' 1")
+	os.system("uvcdynctrl --device=video0 -s 'Exposure (Absolute)' 9")
 	capture.grab()
 	ret, img = capture.retrieve()
 
