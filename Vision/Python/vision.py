@@ -16,7 +16,11 @@ nt = NetworkTables.getTable("grip")
 
 
 #Init Camera
-capture = cv2.VideoCapture(0)
+#capture = cv2.VideoCapture(0)
+
+#Change to localhost when running on Pi
+#Going to :8080 website, the brightness can be changed
+capture = cv2.VideoCapture("http://coprocessor.local:8080/?action=stream")
 if capture.isOpened() == False:
 	print("not opened")
 
@@ -41,9 +45,9 @@ grip = GripPipeline()
 
 
 while True:
-	os.system("uvcdynctrl --device=video0 -s 'Exposure, Auto' 1")
-	os.system("uvcdynctrl --device=video0 -s 'Exposure (Absolute)' 9")
-	os.system("uvcdynctrl --device=video0 -s 'Brightness' 9")
+	#os.system("uvcdynctrl --device=video0 -s 'Exposure, Auto' 1")
+	#os.system("uvcdynctrl --device=video0 -s 'Exposure (Absolute)' 9")
+	#os.system("uvcdynctrl --device=video0 -s 'Brightness' 9")
 	capture.grab()
 	ret, img = capture.retrieve()
 
