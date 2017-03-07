@@ -48,9 +48,9 @@ while True:
 	#os.system("uvcdynctrl --device=video0 -s 'Exposure, Auto' 1")
 	#os.system("uvcdynctrl --device=video0 -s 'Exposure (Absolute)' 9")
 	#os.system("uvcdynctrl --device=video0 -s 'Brightness' 9")
-	capture.grab()
+	#capture.grab()
 	ret, img = capture.retrieve()
-
+	time.sleep(0.1)
 
 	bk = False
 
@@ -64,7 +64,7 @@ while True:
 		for k in range(len(contours)):
 			if i != k:
 				x2, y2, w2, h2 = cv2.boundingRect(contours[k])
-				if y2 + y == 0:
+				if y2 + y == 0 or x + x2 == 0:
 					break
 					#prevent division by zero
 				#Get Ratios of Heights and Widths of the Two Boxes
