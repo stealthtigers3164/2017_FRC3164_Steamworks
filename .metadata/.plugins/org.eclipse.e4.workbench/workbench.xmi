@@ -3,7 +3,7 @@
   <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xA;&lt;workbench>&#xA;&lt;mruList>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;GripPipeline.java&quot; tooltip=&quot;Vision/src/com/team3164/vision/GripPipeline.java&quot;>&#xA;&lt;persistable path=&quot;/Vision/src/com/team3164/vision/GripPipeline.java&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;Vision.java&quot; tooltip=&quot;Vision/src/com/team3164/vision/Vision.java&quot;>&#xA;&lt;persistable path=&quot;/Vision/src/com/team3164/vision/Vision.java&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;WorkerThread.java&quot; tooltip=&quot;SteamWorks/src/org/usfirst/frc/team3164/robot/thread/WorkerThread.java&quot;>&#xA;&lt;persistable path=&quot;/SteamWorks/src/org/usfirst/frc/team3164/robot/thread/WorkerThread.java&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;Robot.java&quot; tooltip=&quot;SteamWorks/src/org/usfirst/frc/team3164/robot/Robot.java&quot;>&#xA;&lt;persistable path=&quot;/SteamWorks/src/org/usfirst/frc/team3164/robot/Robot.java&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;Turn.java&quot; tooltip=&quot;SteamWorks/src/org/usfirst/frc/team3164/robot/auto/Turn.java&quot;>&#xA;&lt;persistable path=&quot;/SteamWorks/src/org/usfirst/frc/team3164/robot/auto/Turn.java&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;GyroscopeSensor.java&quot; tooltip=&quot;SteamWorks/src/org/usfirst/frc/team3164/robot/electrical/GyroscopeSensor.java&quot;>&#xA;&lt;persistable path=&quot;/SteamWorks/src/org/usfirst/frc/team3164/robot/electrical/GyroscopeSensor.java&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;GyroHandler.java&quot; tooltip=&quot;SteamWorks/src/org/usfirst/frc/team3164/robot/auto/GyroHandler.java&quot;>&#xA;&lt;persistable path=&quot;/SteamWorks/src/org/usfirst/frc/team3164/robot/auto/GyroHandler.java&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;TurnHandler.java&quot; tooltip=&quot;SteamWorks/src/org/usfirst/frc/team3164/robot/auto/TurnHandler.java&quot;>&#xA;&lt;persistable path=&quot;/SteamWorks/src/org/usfirst/frc/team3164/robot/auto/TurnHandler.java&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;MiddleRobotTurns.java&quot; tooltip=&quot;SteamWorks/src/org/usfirst/frc/team3164/robot/auto/MiddleRobotTurns.java&quot;>&#xA;&lt;persistable path=&quot;/SteamWorks/src/org/usfirst/frc/team3164/robot/auto/MiddleRobotTurns.java&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;DriveTrain.java&quot; tooltip=&quot;SteamWorks/src/org/usfirst/frc/team3164/robot/movement/DriveTrain.java&quot;>&#xA;&lt;persistable path=&quot;/SteamWorks/src/org/usfirst/frc/team3164/robot/movement/DriveTrain.java&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;AutoDrive.java&quot; tooltip=&quot;SteamWorks/src/org/usfirst/frc/team3164/robot/auto/AutoDrive.java&quot;>&#xA;&lt;persistable path=&quot;/SteamWorks/src/org/usfirst/frc/team3164/robot/auto/AutoDrive.java&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;AnalogDistance.java&quot; tooltip=&quot;SteamWorks/src/org/usfirst/frc/team3164/robot/electrical/AnalogDistance.java&quot;>&#xA;&lt;persistable path=&quot;/SteamWorks/src/org/usfirst/frc/team3164/robot/electrical/AnalogDistance.java&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;GyroscopeSensor.java&quot; tooltip=&quot;SteamWorks/src/org/usfirst/frc/team3164/robot/auto/GyroscopeSensor.java&quot;>&#xA;&lt;persistable path=&quot;/SteamWorks/src/org/usfirst/frc/team3164/robot/auto/GyroscopeSensor.java&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;SideRobotTurns.java&quot; tooltip=&quot;SteamWorks/src/org/usfirst/frc/team3164/robot/auto/SideRobotTurns.java&quot;>&#xA;&lt;persistable path=&quot;/SteamWorks/src/org/usfirst/frc/team3164/robot/auto/SideRobotTurns.java&quot;/>&#xA;&lt;/file>&#xA;&lt;file factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot; name=&quot;RobotTurns.java&quot; tooltip=&quot;SteamWorks/src/org/usfirst/frc/team3164/robot/auto/RobotTurns.java&quot;>&#xA;&lt;persistable path=&quot;/SteamWorks/src/org/usfirst/frc/team3164/robot/auto/RobotTurns.java&quot;/>&#xA;&lt;/file>&#xA;&lt;/mruList>&#xA;&lt;/workbench>"/>
   <tags>ModelMigrationProcessor.001</tags>
   <tags>activeSchemeId:org.eclipse.ui.defaultAcceleratorConfiguration</tags>
-  <children xsi:type="basic:TrimmedWindow" xmi:id="_-xvqEfJoEeaQZPQtZBlaOA" elementId="IDEWindow" contributorURI="platform:/plugin/org.eclipse.platform" selectedElement="_-xvqEvJoEeaQZPQtZBlaOA" label="%trimmedwindow.label.eclipseSDK" x="44" y="44" width="1680" height="1050">
+  <children xsi:type="basic:TrimmedWindow" xmi:id="_-xvqEfJoEeaQZPQtZBlaOA" elementId="IDEWindow" contributorURI="platform:/plugin/org.eclipse.platform" selectedElement="_-xvqEvJoEeaQZPQtZBlaOA" label="%trimmedwindow.label.eclipseSDK" x="44" y="44" width="1680" height="1027">
     <persistedState key="coolBarVisible" value="true"/>
     <persistedState key="perspectiveBarVisible" value="true"/>
     <persistedState key="isRestored" value="true"/>
@@ -11,6 +11,7 @@
     <persistedState key="workingSets" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xA;&lt;workingSets/>"/>
     <persistedState key="aggregateWorkingSetId" value="Aggregate for window 1485010522424"/>
     <tags>topLevel</tags>
+    <tags>shellMaximized</tags>
     <children xsi:type="basic:PartSashContainer" xmi:id="_-xvqEvJoEeaQZPQtZBlaOA" selectedElement="_-xvqE_JoEeaQZPQtZBlaOA" horizontal="true">
       <children xsi:type="advanced:PerspectiveStack" xmi:id="_-xvqE_JoEeaQZPQtZBlaOA" elementId="org.eclipse.ui.ide.perspectivestack" containerData="7500" selectedElement="_-xvqJvJoEeaQZPQtZBlaOA">
         <children xsi:type="advanced:Perspective" xmi:id="_-xvqFPJoEeaQZPQtZBlaOA" elementId="org.eclipse.ui.resourcePerspective" selectedElement="_-xvqFfJoEeaQZPQtZBlaOA" label="Resource" iconURI="platform:/plugin/org.eclipse.ui.ide.application/$nl$/icons/full/eview16/resource_persp.png">
@@ -147,6 +148,7 @@
               <children xsi:type="basic:PartStack" xmi:id="_-xvqKfJoEeaQZPQtZBlaOA" elementId="left" containerData="6000" selectedElement="_-xvqKvJoEeaQZPQtZBlaOA">
                 <tags>org.eclipse.e4.primaryNavigationStack</tags>
                 <tags>active</tags>
+                <tags>noFocus</tags>
                 <children xsi:type="advanced:Placeholder" xmi:id="_-xvqKvJoEeaQZPQtZBlaOA" elementId="org.eclipse.jdt.ui.PackageExplorer" ref="_-xvrxPJoEeaQZPQtZBlaOA"/>
                 <children xsi:type="advanced:Placeholder" xmi:id="_-xvqK_JoEeaQZPQtZBlaOA" elementId="org.eclipse.jdt.ui.TypeHierarchy" toBeRendered="false" ref="_-xvr5PJoEeaQZPQtZBlaOA"/>
                 <children xsi:type="advanced:Placeholder" xmi:id="_-xvqLPJoEeaQZPQtZBlaOA" elementId="org.eclipse.ui.views.ResourceNavigator" toBeRendered="false" ref="_-xvrlvJoEeaQZPQtZBlaOA"/>
@@ -502,7 +504,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_-xvsNfJoEeaQZPQtZBlaOA" elementId="org.eclipse.ui.workbench.file">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_OovmsAEJEee4QukIa0-r0g" elementId="print" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" command="_-xxfyfJoEeaQZPQtZBlaOA"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_mX-tUALkEee4p6BjeXDLpQ" elementId="print" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" command="_-xxfyfJoEeaQZPQtZBlaOA"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_-xvsQ_JoEeaQZPQtZBlaOA" elementId="additions" toBeRendered="false">
         <tags>toolbarSeparator</tags>
@@ -529,7 +531,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_-xvslfJoEeaQZPQtZBlaOA" elementId="org.eclipse.ui.workbench.navigate">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_OoyqAAEJEee4QukIa0-r0g" elementId="org.eclipse.ui.window.pinEditor" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" type="Check" command="_-xxfevJoEeaQZPQtZBlaOA"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_mYBJkALkEee4p6BjeXDLpQ" elementId="org.eclipse.ui.window.pinEditor" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" type="Check" command="_-xxfevJoEeaQZPQtZBlaOA"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_-xvsoPJoEeaQZPQtZBlaOA" elementId="group.editor" toBeRendered="false">
         <tags>toolbarSeparator</tags>
@@ -933,7 +935,7 @@
     <bindings xmi:id="_slArXQD3EeesrMQ-Ogq2AA" keySequence="ALT+COMMAND+X A" command="_-xw6LfJoEeaQZPQtZBlaOA">
       <tags>platform:cocoa</tags>
     </bindings>
-    <bindings xmi:id="_OUktgQEJEee4QukIa0-r0g" keySequence="COMMAND+CTRL+F" command="_-xxhF_JoEeaQZPQtZBlaOA"/>
+    <bindings xmi:id="_mEfwoALkEee4p6BjeXDLpQ" keySequence="COMMAND+CTRL+F" command="_-xxhF_JoEeaQZPQtZBlaOA"/>
   </bindingTables>
   <bindingTables xmi:id="_-xwRzfJoEeaQZPQtZBlaOA" elementId="org.eclipse.cdt.ui.cEditorScope" bindingContext="_-xwSo_JoEeaQZPQtZBlaOA">
     <bindings xmi:id="_skwMpQD3EeesrMQ-Ogq2AA" keySequence="CTRL+SHIFT+ARROW_LEFT" command="_-xxfnvJoEeaQZPQtZBlaOA">
@@ -1292,7 +1294,7 @@
   <bindingTables xmi:id="_-xwSg_JoEeaQZPQtZBlaOA" bindingContext="_-xwS7PJoEeaQZPQtZBlaOA"/>
   <bindingTables xmi:id="_-xwShPJoEeaQZPQtZBlaOA" bindingContext="_-xwS7fJoEeaQZPQtZBlaOA"/>
   <bindingTables xmi:id="_-xwShfJoEeaQZPQtZBlaOA" contributorURI="platform:/fragment/org.eclipse.e4.ui.workbench.renderers.swt.cocoa" bindingContext="_-xwStPJoEeaQZPQtZBlaOA">
-    <bindings xmi:id="_OUktggEJEee4QukIa0-r0g" keySequence="M1+W" command="_-xxhGfJoEeaQZPQtZBlaOA"/>
+    <bindings xmi:id="_mEfwoQLkEee4p6BjeXDLpQ" keySequence="M1+W" command="_-xxhGfJoEeaQZPQtZBlaOA"/>
   </bindingTables>
   <bindingTables xmi:id="_-xwSh_JoEeaQZPQtZBlaOA" bindingContext="_-xwS7vJoEeaQZPQtZBlaOA"/>
   <rootContext xmi:id="_-xwSiPJoEeaQZPQtZBlaOA" elementId="org.eclipse.ui.contexts.dialogAndWindow" contributorURI="platform:/plugin/org.eclipse.platform" name="In Dialogs and Windows" description="Either a dialog or a window is open">
