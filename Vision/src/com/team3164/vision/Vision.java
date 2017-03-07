@@ -40,7 +40,9 @@ public class Vision {
 			Boolean bk = false;
 			float x = 0, y = 0, h = 0, w = 0, x2 = 0, y2 = 0, h2 = 0, w2 = 0;
 			Mat img = new Mat();
+			camera.grab();
 			if(camera.retrieve(img)) {
+				System.out.print("Retreive Success");
 				visionPipe.process(img);
 				
 				/*double[] width = new double[visionPipe.filterContoursOutput().size()];
@@ -129,7 +131,7 @@ public class Vision {
 			}
 			
 			try {
-				Thread.sleep(5);
+				Thread.sleep(50);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
