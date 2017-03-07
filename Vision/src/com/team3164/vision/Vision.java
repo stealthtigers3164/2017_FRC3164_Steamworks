@@ -1,6 +1,6 @@
 package com.team3164.vision;
 
-import com.sun.org.apache.xml.internal.serializer.ElemDesc;
+
 import com.team3164.vision.GripPipeline; 
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
@@ -41,7 +41,8 @@ public class Vision {
 		
 		
 		while(true) {
-			Boolean bk = False;
+			Boolean bk = false;
+			float x, y, h, w, x2, y2, h2, w2;
 			Mat img = new Mat();
 			if(camera.retrieve(img)) {
 				visionPipe.process(img);
@@ -64,29 +65,29 @@ public class Vision {
 					posy[i] = rect.y;
 					posxC[i] = rect.x + 0.5*(rect.width);
 					posyC[i] = rect.y + 0.5*(rect.height);*/
-					float x = rect.x;
-					float y = rect.y;
-					float h = rect.height;
-					float w = rect.width;
+					x = rect.x;
+					y = rect.y;
+					h = rect.height;
+					w = rect.width;
 					for (int k = 0; k < visionPipe.filterContoursOutput().size(); k++) {
 						if(k != i) {
 						Rect rect2 = Imgproc.boundingRect(visionPipe.filterContoursOutput().get(k));
-						float x2 = rect2.x;
-						float y2 = rect2.y;
-						float h2 = rect2.height;
-						float w2 = rect2.width;
+						x2 = rect2.x;
+						y2 = rect2.y;
+						h2 = rect2.height;
+						w2 = rect2.width;
 
-						float widthRatioScore = 100 - (100 * abs(1 - (w/w2)));
-						float heightRatioScore = 100 - (100 * abs(1 - (h/h2)));
+						float widthRatioScore = 100 - (100 * Math.abs(1 - (w/w2)));
+						float heightRatioScore = 100 - (100 * Math.abs(1 - (h/h2)));
 				
 						//Get Difference in X/Y, its a percent difference on a 100 scale
-						float yDiff = abs(y2 - y) / (y2 + y) * 200;
-						float xDiff = abs(x2 - x) / (x2 + x) * 200;
+						float yDiff = Math.abs(y2 - y) / (y2 + y) * 200;
+						float xDiff = Math.abs(x2 - x) / (x2 + x) * 200;
 						//If the ratios of the widths and the heights abocve 60%, and 
 						//Difference in y value is under twenty percent
 						//Not sure about xDiff
 						if (widthRatioScore > 60 && heightRatioScore > 60 && yDiff < 35 && xDiff < 100) {
-							bk = True;
+							bk = true;
 							break;
 						}
 					}}
@@ -103,31 +104,30 @@ public class Vision {
 					table.putNumberArray("centerX", posxC);
 					table.putNumberArray("centerY", posyC);*/
 				if(bk) {
-					table.putBoolean("boxVisible", True);
-					if (x > x2) {
-						float boxLeftX = x2;
-						float boxLeftY = y2;
-						float boxLeftW = w2;
-						float boxLeftH = h2;
-						float boxRightX = x;
-						float boxRightY = y;
-						float boxRightW = w;
-						float boxRightH = h;
-					} else {
-						float boxLeftX = x;
-						float boxLeftY = y;
-						float boxLeftW = w;
-						float boxLeftH = h;
-						float boxRightX = x2;
-						float boxRightY = y2;
-						float boxRightW = w2;
-						float boxRightH = h2;	
+					table.putBoolean("boxVisible", true);
+					float boxLeftX = x2;
+					float boxLeftY = y2;
+					float boxLeftW = w2;
+					float boxLeftH = h2;
+					float boxRightX = x;
+					float boxRightY = y;
+					float boxRightW = w;
+					float boxRightH = h;
+					if (x < x2) {
+						boxLeftX = x;
+						boxLeftY = y;
+						boxLeftW = w;
+						boxLeftH = h;
+						boxRightX = x2;
+						boxRightY = y2;
+						boxRightW = w2;
+						boxRightH = h2;	
 					}
 					table.putNumber("distLeft", boxLeftX);
 					table.putNumber("distRight", (640 - boxRightX - boxRightW));
-					bk = False;
+					bk = false;
 				} else {
-					table.putBoolean("boxVisible", False);
+					table.putBoolean("boxVisible", false);
 				}
 				//}
 			}
