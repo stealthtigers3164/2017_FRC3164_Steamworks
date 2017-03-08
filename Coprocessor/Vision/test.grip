@@ -1,28 +1,28 @@
 <grip:Pipeline>
   <sources>
-    <grip:Camera>
-      <property name="deviceNumber" value="0"/>
-    </grip:Camera>
+    <grip:ImageFile>
+      <property name="path" value="/Users/will/Documents/Robotics/2017_FRC3164_Steamworks/Coprocessor/Vision/image_screenshot_07.03.2017.png"/>
+    </grip:ImageFile>
   </sources>
   <steps>
     <grip:Step name="HSV Threshold">
       <grip:Input step="0" socket="0"/>
       <grip:Input step="0" socket="1">
         <value>
-          <double>45.762711864406775</double>
+          <double>71.18644067796609</double>
           <double>180.0</double>
         </value>
       </grip:Input>
       <grip:Input step="0" socket="2">
         <value>
-          <double>88.84180790960451</double>
+          <double>196.89265536723164</double>
           <double>255.0</double>
         </value>
       </grip:Input>
       <grip:Input step="0" socket="3">
         <value>
-          <double>153.6723163841808</double>
-          <double>255.0</double>
+          <double>69.63276836158191</double>
+          <double>144.2287234042553</double>
         </value>
       </grip:Input>
       <grip:Output step="0" socket="0" previewed="true"/>
@@ -139,20 +139,20 @@
       <grip:Input step="4" socket="0"/>
     </grip:Connection>
     <grip:Connection>
-      <grip:Output step="0" socket="0" previewed="true"/>
-      <grip:Input step="1" socket="0"/>
-    </grip:Connection>
-    <grip:Connection>
       <grip:Output step="2" socket="0" previewed="false"/>
       <grip:Input step="3" socket="0"/>
+    </grip:Connection>
+    <grip:Connection>
+      <grip:Output step="1" socket="0" previewed="false"/>
+      <grip:Input step="2" socket="0"/>
     </grip:Connection>
     <grip:Connection>
       <grip:Output source="0" socket="0" previewed="true"/>
       <grip:Input step="0" socket="0"/>
     </grip:Connection>
     <grip:Connection>
-      <grip:Output step="1" socket="0" previewed="false"/>
-      <grip:Input step="2" socket="0"/>
+      <grip:Output step="0" socket="0" previewed="true"/>
+      <grip:Input step="1" socket="0"/>
     </grip:Connection>
     <grip:Connection>
       <grip:Output step="3" socket="0" previewed="true"/>
@@ -169,10 +169,10 @@
     <deployJvmOptions>-Xmx50m -XX:-OmitStackTraceInFastThrow -XX:+HeapDumpOnOutOfMemoryError -XX:MaxNewSize=16m</deployJvmOptions>
   </settings>
   <codeGenerationSettings>
-    <language>Java</language>
+    <language>Python</language>
     <className>GripPipeline</className>
     <implementWpilibPipeline>false</implementWpilibPipeline>
-    <saveDir>/Users/will/Documents/Robotics/2017_FRC3164_Steamworks/Vision/src/com/team3164/vision</saveDir>
+    <saveDir>/Users/will/Documents/Robotics/2017_FRC3164_Steamworks/Coprocessor/Vision</saveDir>
     <packageName>com.team3164.vision</packageName>
     <moduleName>grip</moduleName>
   </codeGenerationSettings>

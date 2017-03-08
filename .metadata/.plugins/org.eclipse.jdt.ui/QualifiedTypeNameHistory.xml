@@ -18,4 +18,5 @@
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="edu.wpi.first.wpilibj.smartdashboard.SmartDashboard"/>
 <fullyQualifiedTypeName name="org.usfirst.frc.team3164.robot.auto.RobotPosition"/>
+<fullyQualifiedTypeName name="com.team3164.vision.GripPipeline"/>
 </qualifiedTypeNameHistroy>

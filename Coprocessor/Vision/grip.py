@@ -12,35 +12,35 @@ class GripPipeline:
         """initializes all values to presets or None if need to be set
         """
 
-        self.__hsv_threshold_hue = [45.762711864406775, 180.0]
-        self.__hsv_threshold_saturation = [88.84180790960451, 255.0]
-        self.__hsv_threshold_value = [153.6723163841808, 255.0]
+        self.hsv_threshold_hue = [71.18644067796609, 180.0]
+        self.hsv_threshold_saturation = [196.89265536723164, 255.0]
+        self.hsv_threshold_value = [69.63276836158191, 144.2287234042553]
 
         self.hsv_threshold_output = None
 
-        self.__blur_input = self.hsv_threshold_output
-        self.__blur_type = BlurType.Box_Blur
-        self.__blur_radius = 4.504504504504505
+        self.blur_input = self.hsv_threshold_output
+        self.blur_type = BlurType.Box_Blur
+        self.blur_radius = 4.504504504504505
 
         self.blur_output = None
 
-        self.__find_contours_input = self.blur_output
-        self.__find_contours_external_only = False
+        self.find_contours_input = self.blur_output
+        self.find_contours_external_only = False
 
         self.find_contours_output = None
 
-        self.__filter_contours_contours = self.find_contours_output
-        self.__filter_contours_min_area = 49.0
-        self.__filter_contours_min_perimeter = 0.0
-        self.__filter_contours_min_width = 20.0
-        self.__filter_contours_max_width = 1000.0
-        self.__filter_contours_min_height = 0.0
-        self.__filter_contours_max_height = 1000.0
-        self.__filter_contours_solidity = [11.690647482014388, 100.0]
-        self.__filter_contours_max_vertices = 1000000.0
-        self.__filter_contours_min_vertices = 0.0
-        self.__filter_contours_min_ratio = 0.0
-        self.__filter_contours_max_ratio = 1000.0
+        self.filter_contours_contours = self.find_contours_output
+        self.filter_contours_min_area = 49.0
+        self.filter_contours_min_perimeter = 0.0
+        self.filter_contours_min_width = 20.0
+        self.filter_contours_max_width = 1000.0
+        self.filter_contours_min_height = 0.0
+        self.filter_contours_max_height = 1000.0
+        self.filter_contours_solidity = [11.690647482014388, 100.0]
+        self.filter_contours_max_vertices = 1000000.0
+        self.filter_contours_min_vertices = 0.0
+        self.filter_contours_min_ratio = 0.0
+        self.filter_contours_max_ratio = 1000.0
 
         self.filter_contours_output = None
 
@@ -50,24 +50,24 @@ class GripPipeline:
         Runs the pipeline and sets all outputs to new values.
         """
         # Step HSV_Threshold0:
-        self.__hsv_threshold_input = source0
-        (self.hsv_threshold_output) = self.__hsv_threshold(self.__hsv_threshold_input, self.__hsv_threshold_hue, self.__hsv_threshold_saturation, self.__hsv_threshold_value)
+        self.hsv_threshold_input = source0
+        (self.hsv_threshold_output) = self.hsv_threshold(self.hsv_threshold_input, self.hsv_threshold_hue, self.hsv_threshold_saturation, self.hsv_threshold_value)
 
         # Step Blur0:
-        self.__blur_input = self.hsv_threshold_output
-        (self.blur_output) = self.__blur(self.__blur_input, self.__blur_type, self.__blur_radius)
+        self.blur_input = self.hsv_threshold_output
+        (self.blur_output) = self.blur(self.blur_input, self.blur_type, self.blur_radius)
 
         # Step Find_Contours0:
-        self.__find_contours_input = self.blur_output
-        (self.find_contours_output) = self.__find_contours(self.__find_contours_input, self.__find_contours_external_only)
+        self.find_contours_input = self.blur_output
+        (self.find_contours_output) = self.find_contours(self.find_contours_input, self.find_contours_external_only)
 
         # Step Filter_Contours0:
-        self.__filter_contours_contours = self.find_contours_output
-        (self.filter_contours_output) = self.__filter_contours(self.__filter_contours_contours, self.__filter_contours_min_area, self.__filter_contours_min_perimeter, self.__filter_contours_min_width, self.__filter_contours_max_width, self.__filter_contours_min_height, self.__filter_contours_max_height, self.__filter_contours_solidity, self.__filter_contours_max_vertices, self.__filter_contours_min_vertices, self.__filter_contours_min_ratio, self.__filter_contours_max_ratio)
+        self.filter_contours_contours = self.find_contours_output
+        (self.filter_contours_output) = self.filter_contours(self.filter_contours_contours, self.filter_contours_min_area, self.filter_contours_min_perimeter, self.filter_contours_min_width, self.filter_contours_max_width, self.filter_contours_min_height, self.filter_contours_max_height, self.filter_contours_solidity, self.filter_contours_max_vertices, self.filter_contours_min_vertices, self.filter_contours_min_ratio, self.filter_contours_max_ratio)
 
 
     @staticmethod
-    def __hsv_threshold(input, hue, sat, val):
+    def hsv_threshold(input, hue, sat, val):
         """Segment an image based on hue, saturation, and value ranges.
         Args:
             input: A BGR numpy.ndarray.
@@ -81,7 +81,7 @@ class GripPipeline:
         return cv2.inRange(out, (hue[0], sat[0], val[0]),  (hue[1], sat[1], val[1]))
 
     @staticmethod
-    def __blur(src, type, radius):
+    def blur(src, type, radius):
         """Softens an image using one of several filters.
         Args:
             src: The source mat (numpy.ndarray).
@@ -103,7 +103,7 @@ class GripPipeline:
             return cv2.bilateralFilter(src, -1, round(radius), round(radius))
 
     @staticmethod
-    def __find_contours(input, external_only):
+    def find_contours(input, external_only):
         """Sets the values of pixels in a binary image to their distance to the nearest black pixel.
         Args:
             input: A numpy.ndarray.
@@ -120,7 +120,7 @@ class GripPipeline:
         return contours
 
     @staticmethod
-    def __filter_contours(input_contours, min_area, min_perimeter, min_width, max_width,
+    def filter_contours(input_contours, min_area, min_perimeter, min_width, max_width,
                         min_height, max_height, solidity, max_vertex_count, min_vertex_count,
                         min_ratio, max_ratio):
         """Filters out contours that do not meet certain criteria.
