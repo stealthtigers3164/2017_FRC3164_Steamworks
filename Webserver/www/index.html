@@ -45,7 +45,7 @@
     <link rel="canonical" href="http://www.example.com/">
     -->
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+    <link rel="stylesheet" href="fonts.css">
     <link rel="stylesheet" href="icons.css">
     <link rel="stylesheet" href="material.amber-blue.min.css">
     <link rel="stylesheet" href="styles.css">
@@ -89,20 +89,21 @@
                 <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
 
                     <div class="mdl-card mdl-cell mdl-cell--9-col " height="480" width="640">
-                        <img src="http://localhost:8080/cam.mjpg" height="480" width="640" />
+                        <img src="http://coprocessor.local:8080/cam.mjpg" id="viewPort" height="480" width="640" />
                     </div>
                     <div class="mdl-card mdl-cell mdl-cell--3-col">
-                        <div class="mdl-card__supporting-text"style="padding-left: 15px; padding-bottom: 10px">
+                        <div class="mdl-card__supporting-text" style="padding-left: 15px; padding-bottom: 10px">
                             <h4>Camera View</h4>
                             <div>
                                 <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-1">
-                                    <input type="radio" id="option-1" class="mdl-radio__button" name="options" value="1" checked>
+                                    <input type="radio" id="option-1" class="mdl-radio__button" name="views" onclick="changeView(this);" value="norm" checked>
                                         <span class="mdl-radio__label">Normal</span>
                                     </input>
                                     </label>
-                            </div><div>
+                            </div>
+                            <div>
                                 <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-2">
-                                    <input type="radio" id="option-2" class="mdl-radio__button" name="options" value="2">
+                                    <input type="radio" id="option-2" class="mdl-radio__button" name="views" onclick="changeView(this);" value="aim">
                                     <span class="mdl-radio__label">Aiming Lines</span>
                                     </input>
                                 </label>
@@ -118,7 +119,7 @@
                     <div class="mdl-card mdl-cell mdl-cell--12-col">
                         <div class="mdl-card__supporting-text" style="padding-left: 15px; padding-bottom: 10px">
                             <h4>Autonomous Starting Position</h4>
-                            
+
                             <div>
                                 <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-a1">
                                     <input type="radio" id="option-a1" class="mdl-radio__button" name="auto" value="left" checked>
@@ -140,7 +141,7 @@
                                     </input>
                                 </label>
                             </div>
-                            
+
                         </div>
                     </div>
 
@@ -149,12 +150,16 @@
 
 
 
-
-
-
-
             </div>
 
+
+            <script>
+                function changeView(radio) {
+                    document.getElementById("viewPort").src= "http://coprocessor.local:8080/"+radio.value+"_cam.mjpg"
+
+                }
+            </script>
+            <br/><br/>
             <footer class="mdl-mini-footer">
                 <div class="mdl-mini-footer__left-section">
                     <div class="mdl-logo">3164 Online Robot Control Interface</div>

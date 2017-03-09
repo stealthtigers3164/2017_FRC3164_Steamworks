@@ -9,11 +9,11 @@ import serial
 from time import sleep
 
 
-serialPort = "/dev/tty.usbmodem1411"
-#serialPort = "/dev/ttyACM0"
+#serialPort = "/dev/cu.usbmodem1421"
+serialPort = "/dev/ttyACM0"
 
-ntAddress = "jrue.local"
-#ntAddress = "roborio-3164-frc.local"
+#ntAddress = "jrue.local"
+ntAddress = "roborio-3164-frc.local"
 
 # configure the serial connections (the parameters differs on the device you are connecting to)
 
@@ -29,13 +29,15 @@ while tries <= 99:
 			parity=serial.PARITY_ODD,
 			stopbits=serial.STOPBITS_TWO,
 			bytesize=serial.SEVENBITS)
-		ser.isOpen()
-		tries = 10
+		if(ser.isOpen()):
+			tries = 101
+		
+		#tries = 10
 	except:
 		print("Error Opening Serial Port | Try " + str(tries + 1) + "/100")
 		tries = tries + 1
-		sleep(6)
-if tries > 99:
+		sleep(3)
+if tries > 99 and tries < 101:
 	print("Couldn't Connect to Arduino over Serial, exiting")
 	sys.exit()
 print("Serial Port Opened\n")

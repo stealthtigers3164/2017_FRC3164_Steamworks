@@ -128,7 +128,7 @@
 
                 function doConnect() {
                     toast("Connecting...");
-                    websocket = new WebSocket("ws://localhost:8001/");
+                    websocket = new WebSocket("ws://coprocessor.local:8001/");
                     websocket.onopen = function (evt) { onOpen(evt) };
                     websocket.onclose = function (evt) { onClose(evt) };
                     websocket.onmessage = function (evt) { onMessage(evt) };
@@ -148,17 +148,17 @@
                     //Handle Messages
                     //alert("response: " + evt.data + '\n');
                     packet = evt.data.split("|");
-                    if(packet[0] == "grip") {
-                        if(packet[1] == "hue" || packet[1] ==  "sat" || packet[1] == "val") {
+                    if (packet[0] == "grip") {
+                        if (packet[1] == "hue" || packet[1] == "sat" || packet[1] == "val") {
                             //vals = $('#range-hue').slider("option", "values");
                             vals = packet[2].split(":");
                             $("#range-" + packet[1]).slider("option", "values", [vals[0], vals[1]]);
-                           
+
                         }
 
 
                     }
-                        
+
                 }
                 function onError(evt) {
                     //alert('error: ' + evt.data + '\n');
@@ -167,7 +167,7 @@
                 function doSend(message) {
                     //Handle Sending
                     websocket.send(message);
-                    
+
                 }
 
 
@@ -194,8 +194,21 @@
                         document.getElementById(nam + ".min").value = document.getElementById(nam + ".max").value - 1;
                     }
                 }
+                var filter = "";
+                var view = "norm";
+                function changeView(radio) {
+                    view = radio.value;
+                    updateView();
+                }
 
+                function changeFilter(radio) {
+                    filter = radio.value;
+                    updateView();
+                }
 
+                function updateView() {
+                    document.getElementById("viewPort").src= "http://coprocessor.local:8080/"+filter+view+".mjpg";
+                }
 
                 $(function () {
                     $("#range-hue").slider({
@@ -204,7 +217,7 @@
                         max: 180,
                         values: [0, 1],
                         stop: function (event, ui) {
-                           doSend("grip|hue|" + ui.values[0] + ":" + ui.values[1]);
+                            doSend("grip|hue|" + ui.values[0] + ":" + ui.values[1]);
                         }
                     });
                 });
@@ -216,7 +229,7 @@
                         max: 255,
                         values: [0, 1],
                         stop: function (event, ui) {
-                           doSend("grip|sat|" + ui.values[0] + ":" + ui.values[1]);
+                            doSend("grip|sat|" + ui.values[0] + ":" + ui.values[1]);
                         }
                     });
                 });
@@ -228,7 +241,7 @@
                         max: 255,
                         values: [0, 1],
                         stop: function (event, ui) {
-                           doSend("grip|val|" + ui.values[0] + ":" + ui.values[1]);
+                            doSend("grip|val|" + ui.values[0] + ":" + ui.values[1]);
                         }
                     });
                 });
@@ -236,46 +249,125 @@
 
 
 
+<br/>
+            <section class="section--center mdl-grid mdl-grid--no-spacing"><!-- section--center  -->
+
+                <div class="mdl-card mdl-cell mdl-cell--9-col mdl-shadow--2dp" height="480" width="640">
+                    <img src="http://coprocessor.local:8080/cam.mjpg" id="viewPort" height="480" width="640" />
+                </div>
+                <div class="mdl-card mdl-cell mdl-cell--3-col">
+                        <div class="mdl-card__supporting-text" style="padding-left: 15px; padding-bottom: 10px">
+                            <h4>Camera View</h4>
+                            <div>
+                                <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-1">
+                                    <input type="radio" id="option-1" class="mdl-radio__button" name="views" onclick="changeView(this);" value="norm" checked>
+                                        <span class="mdl-radio__label">Normal</span>
+                                    </input>
+                                    </label>
+                            </div>
+                            <div>
+                                <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-2">
+                                    <input type="radio" id="option-2" class="mdl-radio__button" name="views" onclick="changeView(this);" value="hsv">
+                                    <span class="mdl-radio__label">HSV</span>
+                                    </input>
+                                </label>
+                            </div>
+                            <div>
+                                <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-3">
+                                    <input type="radio" id="option-3" class="mdl-radio__button" name="views" onclick="changeView(this);" value="blur">
+                                    <span class="mdl-radio__label">Blur</span>
+                                    </input>
+                                </label>
+                            </div>
+
+                            <br/>
+                            <h4>Overlays</h4>
+                            <div>
+                                <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-c1">
+                                    <input type="radio" id="option-c1" class="mdl-radio__button" name="filter" onclick="changeFilter(this);" value="" checked>
+                                        <span class="mdl-radio__label">None</span>
+                                    </input>
+                                    </label>
+                            </div>
+                            <div>
+                                <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-c2">
+                                    <input type="radio" id="option-c2" class="mdl-radio__button" name="filter" onclick="changeFilter(this);" value="contours_">
+                                    <span class="mdl-radio__label">Contours</span>
+                                    </input>
+                                </label>
+                            </div>
+                            <div>
+                                <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-c3">
+                                    <input type="radio" id="option-c3" class="mdl-radio__button" name="filter" onclick="changeFilter(this);" value="filter_contours_">
+                                    <span class="mdl-radio__label">Filter Contours</span>
+                                    </input>
+                                </label>
+                            </div>
+                            <div>
+                                <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-c4">
+                                    <input type="radio" id="option-c4" class="mdl-radio__button" name="filter" onclick="changeFilter(this);" value="box_">
+                                    <span class="mdl-radio__label">Found Box</span>
+                                    </input>
+                                </label>
+                            </div>
+                            
+                        </div>
+                    </div>
 
 
-            <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
-                <thead>
-                    <tr>
-                        <th class="mdl-data-table__cell--non-numeric">Modifier</th>
-                        <th class="mdl-data-table__cell--non-numeric" width="300px">Value</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="mdl-data-table__cell--non-numeric">Hue</td>
-                        <td class="mdl-data-table__cell--non-numeric">
-                            <div id="range-hue"></div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="mdl-data-table__cell--non-numeric">Saturation</td>
-                        <td class="mdl-data-table__cell--non-numeric">
-                            <div id="range-sat"></div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="mdl-data-table__cell--non-numeric">Value</td>
-                        <td class="mdl-data-table__cell--non-numeric">
-                            <div id="range-val"></div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            </section>
+
+
+            <section class="section--center mdl-grid mdl-grid--no-spacing"><!-- section--center  -->
+
+                
+                <div class="mdl-card mdl-cell mdl-cell--6-col  mdl-shadow--2dp">
+                    <div class="mdl-card__supporting-text" style="">
+                        <h4>HSV Values</h4>
+                        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                            <thead>
+                                <tr>
+                                    <th class="mdl-data-table__cell--non-numeric">Modifier</th>
+                                    <th class="mdl-data-table__cell--non-numeric" width="300px">Value</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="mdl-data-table__cell--non-numeric">Hue</td>
+                                    <td class="mdl-data-table__cell--non-numeric">
+                                        <div id="range-hue"></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="mdl-data-table__cell--non-numeric">Saturation</td>
+                                    <td class="mdl-data-table__cell--non-numeric">
+                                        <div id="range-sat"></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="mdl-data-table__cell--non-numeric">Value</td>
+                                    <td class="mdl-data-table__cell--non-numeric">
+                                        <div id="range-val"></div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+            </section>
 
 
 
+        
 
             <div id="message-toast" class="mdl-js-snackbar mdl-snackbar">
                 <div class="mdl-snackbar__text"></div>
                 <button class="mdl-snackbar__action" type="button"></button>
             </div>
 
-
+            <br/><br/>
             <footer class="mdl-mini-footer">
                 <div class="mdl-mini-footer__left-section">
                     <div class="mdl-logo">3164 Online Robot Control Interface</div>
