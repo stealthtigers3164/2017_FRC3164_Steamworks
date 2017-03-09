@@ -153,7 +153,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("rightY", gamePad1.sticks.RIGHT_Y.getScaled());
 
 		if (gamePad1.buttons.BUTTON_LB.isOn() || 
-			gamePad1.buttons.BUTTON_LB.isOn()) {
+			gamePad1.buttons.BUTTON_RB.isOn()) {
 			AutoAlign.align(grip, drive);
 		}
 		

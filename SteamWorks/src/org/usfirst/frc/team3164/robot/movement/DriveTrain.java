@@ -22,7 +22,7 @@ public class DriveTrain<T extends BasicMotor> extends MotorSet<T> {
 	
 	private double scaleFactor = 1;
 	private double scaleFactorX = 1;
-	
+
 	private Gamepad gamePad;
 	
 	private boolean update;
@@ -216,15 +216,15 @@ public class DriveTrain<T extends BasicMotor> extends MotorSet<T> {
 
 	public void moveLeftByCameraPixels(int Pixels) {
 		//Max distance in pixels is 320
-		double clampedValue = clamp(Pixels, 0, .5);		
-		setLeftPower(clampedValue);
-		setRightPower(-clampedValue);		
+		double Value = ((double) Pixels) / 640;	
+		setLeftPower(.3);
+		setRightPower(-.3);		
 	}
 	
 	public void moveRightByCameraPixels(int Pixels) {
 		//Max distance in pixels is 320
-		double clampedValue = clamp(Pixels, 0, .5);		
-		setLeftPower(clampedValue);
-		setRightPower(-clampedValue);		
+		double Value = ((double) Pixels) / 640;	
+		setLeftPower(.3);
+		setRightPower(-.3);		
 	}
 }
